@@ -1,0 +1,87 @@
+安装应用软件
+安装应用软件
+ 
+1 安装chromium浏览器
+1 安装chromium浏览器
+火狐虽然好用，但个人感觉chromium更快些。虽然可以通过ubuntu software center来安装，但上面的版本都比较旧。通过添加ppa源来获取比较新的版本。
+sudo add-apt-repository ppa:chromium-daily/ppa
+sudo apt-get update
+sudo apt-get install chromium-browser webaccounts-chromium-extension unity-chromium-extension adobe-flashplugin
+ 
+----
+f you use Chromium and are on 14.04 you can and probably should get the pepper flash plugin by going to your terminal and entering sudo apt-get install pepperflashplugin-nonfreethen in /etc/chromium-browser/defaultadd this line at the bottom . /usr/lib/pepflashplugin-installer/pepflashplayer.shI don't think it auto updates like chrome does so to update type sudo update-pepperflashplugin-nonfree --installinto the terminal
+
+
+
+
+
+
+
+
+
+----
+ 
+2 安装JDK
+略
+ 
+3 安装Git
+3 安装Git
+sudo apt-get install git
+git --version
+git config --global user.name "name"
+git config --global user.email "email"
+ssh-keygen -t rsa
+ 
+4 安装Git Atom
+4 安装Git Atom
+
+sudo add-apt-repository ppa:webupd8team/atom
+
+sudo
+add-apt-repository ppa:webupd8team
+/atom
+
+sudo apt-get update
+
+sudo
+apt-get update
+
+sudo apt-get install atom
+
+sudo
+apt-get 
+install
+atom
+ 
+ 5 安装Eclipse
+
+5 安装Eclipse
+下载最新的eclispe，
+cd /opt && sudo tar zvxf ~/Downloads/eclipse*.tar.gz -C ./
+sudo apt-get install gksu
+gksudo gedit /usr/share/applications/eclipse.desktop
+
+粘贴并保存如下内容
+[Desktop Entry]Name=Eclipse 4Type=ApplicationExec=/opt/eclipse/eclipseTerminal=falseIcon=/opt/eclipse/icon.xpmComment=Integrated Development EnvironmentNoDisplay=falseCategories=Development;IDE;Name[en]=Eclipse
+
+粘贴并保存如下内容
+[Desktop Entry]Name=Eclipse 4Type=ApplicationExec=/opt/eclipse/eclipseTerminal=falseIcon=/opt/eclipse/icon.xpmComment=Integrated Development EnvironmentNoDisplay=falseCategories=Development;IDE;Name[en]=Eclipse
+
+
+
+
+
+
+
+
+
+ 制定eclipse的jvm：
+cd eclipse
+mkdir jre && ln -s $JAVA_HOME/bin
+删除多余的ln：sudo ln -rf -s lib
+或者：修改eclipse.ini  添加-vm $JAVA_HOME/bin/java
+ 
+ 
+ 
+ 
+ 

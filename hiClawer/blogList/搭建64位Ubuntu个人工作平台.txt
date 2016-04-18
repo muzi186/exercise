@@ -1,0 +1,13 @@
+1 安装Ubuntu 64位操作系统
+1 安装Ubuntu 64位操作系统
+2 安装应用软件
+2 安装应用软件
+jdk8
+eclipse
+intellij idea
+mysql
+mysql workbench
+mongodb
+webstorm
+nodejs
+ 

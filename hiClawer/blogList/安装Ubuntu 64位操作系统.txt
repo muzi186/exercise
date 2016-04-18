@@ -1,0 +1,62 @@
+安装Ubuntu 64位操作系统
+安装Ubuntu 64位操作系统
+目标版本：
+Ubuntu 14.04.4 LTS 64bit
+安装前准备
+安装前准备
+ 1) 下载安装包，在Ubuntu官网下载（http://www.ubuntu.com/download/desktop）
+Ubuntu官网下载
+2）制作U盘安装盘
+a-在Ubuntu系统下制作
+How to create a bootable USB stick on Ubuntu
+How to create a bootable USB stick on Ubuntu
+How to create a bootable USB stick 
+on Ubuntu
+格式化U盘
+sudo umount /media/disk 
+sudo umount /media/disk 
+可以用 sudo fdisk -l查看u盘是不是/dev/sdb。
+可以用 sudo fdisk -l查看u盘是不是/dev/sdb。
+格式化：
+sudo mkfs.vfat /dev/sdb
+sudo mkfs.vfat /dev/sdb
+不同的格式对应不同的格式化命令：
+mkfs mkfs.cramfs mkfs.ext3 mkfs.ext4dev mkfs.msdos mkfs.vfat 
+dos
+mkfs.bfs mkfs.ext2 mkfs.ext4 mkfs.minix mkfs.ntfs  
+mkfs.bfs mkfs.ext2 mkfs.ext4 mkfs.minix mkfs.ntfs 
+ 
+ 
+b-在Windows系统下制作
+如果之前没有Ubuntu系统，则可以在Windows下制作U盘的安装盘，必须下载 UltraISO制作，Ubuntu官网上介绍的方法，我个人试过几次，均没有安装成功。
+Ubuntu官网
+ 
+正式安装
+正式安装
+ 
+ 安装过程一般照默认即可，但安装后，发现引导程序有问题，不能直接启动进入系统。
+ 尝试一个晚上，后来安装成功，怀疑是下载的ISO文件有问题，有问题的iso文件才0.99G，后来安装成功的iso文件有1.00G。
+ 
+安装合适的中文输入法
+安装合适的中文输入法
+IBUS
+ibus不好用，但也还凑合。初始系统中的ibus可能有问题，最好重装，先卸载再装。
+sudo apt-get remove ibus
+sudo apt-get autoremove ibus
+sudo apt-get purge ibus
+ 
+结果遇到desktop也删除了，并且找不到settings了，重装后重启后，就ok。
+sudo apt-get install ubuntu-desktop
+sudo apt-get install ibus
+ 
+Fcitx
+sudo add-apt-repository ppa:fcitx-team/nightly
+sudo add-apt-repository ppa:fcitx-team/stable
+sudo apt-get update 
+sudo apt-get install fcitx-sogoupinyin
+sudo apt-get install fcitx-googlepinyin
+ 
+Ubuntu英文环境下安装Fcitx中文输入法
+Ubuntu英文环境下安装Fcitx中文输入法
+http://www.lihuoqing.cn/other/1276.html
+ 

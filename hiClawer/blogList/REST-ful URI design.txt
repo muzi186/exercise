@@ -1,0 +1,598 @@
+REST-ful URI design
+
+This post is about URI naming.  Designing URI names.  Some tips and rules and conventions that you can follow when figuring out your application’s URIs.  The focus is on URIs for ‘REST-ful’ applications.  But many of the tips apply to any kind of website or application.
+REST-ful URIs and non-REST-ful URIs
+A REST-ful URI is a URI that identifies a domain resource (like a book or a shelf or a book loan in a library application) rather than an application resource (like a web page or a form in your application or website).
+Typically ‘REST-ful’ URIs are for APIs.  For programmers.  But in many cases they will serve just as well for a ‘regular’ website.
+non-REST-ful URIs are more likely to identify application resources like web pages rather than domain resources:
+
+/admin/updatebook.jsp?book=5
+/bookview.jsp?book=5
+/bookandreviews.jsp?book=5
+
+PS: There can be confusion about URIs and URLs (and URNs!).  To get a URL just tack on a server (example.com) and a protocol (http or ftp) to a URI (/example): http://example.com/example.  The URI identifies the resource.  And a URL adds some information about how to get it.
+“URIs do not matter with REST-ful applications”
+This is what some people say.  See the comments below.  But is not true:  URIs do matter.  URI design matters.  And URI design for REST-ful applications matters even more.
+The reason is that REST-ful apps are all about domain resources (like books and shelves and loans in a library application) rather than application resources (like forms to reserve a book or pages displaying a book or who has loaned what).
+With REST-ful applications the first thing you need to do is to identify the resources you are representing in your system.  And URI-design is all about how you can consistently name every one of those resources.
+What are the criteria for a good REST-ful URI?
+I assert a good REST-ful URI is:
+
+Short (as possible). This makes them easy to write down or spell or remember.
+Hackable ‘up the tree’. The user should be able to remove the leaf path and get an expected page back. e.g. http://example.com/cars/alfa-romeos/gt you could remove the gt bit and expect to get back all the alfa-romeos.
+Meaningful. Describes the resource. I should have a hint at the type of resource I am looking at (a blog post, or a conversation). Ideally I would have a clue about the actual content of the URI (e.g. a uri like uri-design-essay)
+Predictable. Human-guessable. If your URLs are meaningful they may also be predictable. If your users understand them and can predict what a url for a given resource is then may be able to go ‘straight there’ without having to find a hyperlink on a page. If your URIs are predictable, then your developers will argue less over what should be used for new resource types.
+Help visualize the site structure. This helps make them more ‘predictable’.
+Readable.
+Nouns, not verbs.
+Query args (everything after the ?) are used on querying/searching resources (exclusively). They contain data the affects the query.
+Consistent. If you use extensions, do not use .html in one location and .htm in another. Consistent patterns make URIs more predictable.
+Stateless.
+Return a representation (e.g. XML or json) based on the request headers, like Accept and Accept-Language rather than a change in the URI.
+Tied to a resource. Permanent. The URI will continue to work while the resource exists, and despite the resource potentially changing over time.
+Report canonical URIs. If you have two different URIs for the same resource, ensure you put the canonical URL in the response.
+Follows the digging-deeper-path-and-backspace convention. URI path can be used like a backspace.
+Uses name1=value1;name2=value2 (aka matrix parameters) when filtering collections of resources.
+
+Some of these criteria pull against each other. For example, how can I make a meaningful-yet-short uri? URI-design rightly remains an art not a science.
+Tips for creating good REST-ful URIs
+
+Lower case. Mixed case can be harder to type in. Upper- and, arguably, mixed-case can be less readable. Mixed case may also cause ambiguity. Is http://example.com/TheBigFatCat different to http://example.com/thebigfatcat
+Use hypens rather than spaces or underlines. hyphens-seem-to-be-the-way-most-sites-do-it. The resulting url is readable enough. using_underlines_in_your_url may not be as SEO friendly. And I find they are not as asthetic as hypens. Spaces in urls quickly degrade into a sewer of url encoded %20s.
+Use a plural path for collections. e.g. /conversations.
+Put individual resources under the plural collection path. e.g. /conversations/conversation-9. Others may disagree and argue it be something like /conversation-9. But I assert the individual resource fits nicely under the collection. Plus it means I can ‘hack the url’ up a level and remove the conversation part and be left on the /conversations page listing all (or some) of the conversations.
+Favor hackable urls over direct urls.
+
+Things to avoid
+
+Avoid query args on an non-query/non-search resource. e.g. prefer /conversations/conversation-12 over /conversations/conversation.php?conversation_id=12
+Do not use mixed or upper-case in URIs.
+Avoid extensions (avoid .en or .fr; avoid .html or .htm or .php or .jsp; avoid .xml or .json).
+Do not use characters that require url encoding in URIs (e.g. spaces).
+Avoid direct URIs e.g. /todo-item-{id} for hierarchical data. Instead expose its context: /conversations/conversation-9-help-me/todo-list-8-setup-tasks/todo-item-12-install-apache
+
+Benefits of good URI design
+
+Other web sites may use your URIs more if they ‘look good’.
+Other web sites may use your URIs more if they do not change. If there is no link rot.
+Good URIs improve your site usability.
+
+Readable URIs increase your search engine traffic. People actually see and read URLs in Google’s search results. And they are more likely to go to a page if the name of the page matches what they are looking for.
+
+How good URI design improves usability
+Users can find their way around more easily when there are good URIs. They have a chance of getting themselves ‘unstuck’ inside the site structure. e.g. if they are at /conversations/conversation-10/todo-list-12 they can easily enough pop up to /conversations where all the current conversations are displayed.
+A good programmer looking at well designed URIs in a REST-ful API should be able to visualize your API merely by knowing some of the URLs.
+Non-REST-ful URLs
+I have always aimed to create ‘decent’ urls. In non-REST-ful apps they would be good solid urls like:
+
+http://rimuhosting.com/ticket/startticket.jsp
+https://pingability.com/cp/register.jsp
+http://rimuhosting.com/order/startorder1.jsp?type=2&t-vps
+
+Typically when there is a different kind of page I create an JSP for that page.  And the page name will reflect whatever is happening on that page.
+Non-REST-ful URIs are fine, they are just non-REST-ful.
+This post is not a debate about which is ‘better’ out of REST-ful and non-REST-ful URIs. This post is about what makes a good REST-ful URI. If your URI is non-REST-ful it is simply non-REST-ful, and I make no claim that it is ‘good’ or ‘bad’.
+REST-ful URIs
+The RedRata team has recently started trying to create an application and we would like it to be a ‘REST-ful’ application.
+REST-ful applications do not implement a specification (like SOAP, or XML-RPC, or ATOM). There is no validation service that will tell me if my ‘REST-ful’ application is REST 1.0 compliant. There is no REST 1.0 BTW.
+Instead REST-ful applications are applications that follow REST-ful conventions.
+And there are conventions around what makes a REST-ful URI.
+I’ve found that coming up with REST-ful URIs that I, and others, think follows proper REST-ful conventions is difficult.
+But the difficulty comes because of the importance of good URI design. Not so much that it follows some convention that a bunch of technologists have come up with. But because it improves end user usability.
+Examples of (possibly) REST-ful URIs
+In a quickly-recognizable-as-REST-ful app we would possibly have URLs like. e.g.
+
+http://rimuhosting.com/users/user-9/contact-details
+http://rimuhosting.com/plans;type=vps to show VPS plans
+http://rimuhosting.com/plans/plan-miro2b to show the MIRO2B plan. Aside: this redrata.com WordPress blog runs on a RimuHosting Miro2 plan.
+http://rimuhosting.com/carts/cart-2/server-1 – a server plan added to the cart, in preparation of checkout
+
+5 developers; an infinite selection of URLs; chaos ensues
+I came up with those sample URLs just now. If I were to come up with the same resources tomorrow would that list look the same? What if another developer in my team attempted the same task?
+Would the names be similar? Would we argue endlessly about which was the better way? Would there be any concrete guidelines on which we could select one set over another? Would we even be aware of the URI design importance to worry? Would usability issues and development chaos ensue?
+How to decide on which template or conventions do you use? How do you get everyone on the same page? How can you make it so two developers independently adding a new resource to the app would use the same or similar URI?
+In order to try and get some consistency over how we design urls in RedRata REST-ful apps we have tried to come up with a convention for us to use. That convention and a discussion of the alternatives follows.
+Nouns, not verbs
+REST-ish URLs  identify resources.  Nouns.  They tell you what they ‘are’.
+REST-ful URIs should not tell you what they ‘do’.  No ‘getPlan’.  Nor ‘start-order’.
+The ‘do’ comes when you apply a verb; an HTTP method to the URL.  e.g. a HTTP PUT to a URI means update that resource.  A DELETE means to delete it.  A POST typically means ‘create something for me’ (e.g. a new order, or a shopping cart).
+Stateless URIs
+An example. On RimuHosting we have some long running operations. e.g. when we move a VPS from one host server across the globe to a different data center. So we create a move status URL and give it a status id. And then we use Ajax to keep pushing updates to that URL. Or the user can reload the page.
+There is a problem. That URL only works for that user on that session. They could not bookmark it, go home, and see it at home. They cannot send it to a colleague and say ‘Keep an eye on this move’ for me.
+Good URIs (REST-ful or otherwise) should be stateless. If I am looking at a document I should be able to share that URL with someone and they should be able to access the same resource.
+What they see may differ from what I see. e.g. since I may be logged in as an admin on a site and see a few more options than they do as a guest. But this is just a different representation of the same resource. Or they may even get a “not authorized” response if they are a guest, or a logged in user without the authority to see the resource.
+To get a stateless URI avoid reliance on session attributes. Transient things. If you need to store something, store it in a database (where database is probably some SQL database, but anything that is accessible by someone with a different session ID will do).
+Examples:“Hey, have I got all the things you needed in my shopping cart?” A URL of http://example.com/shoppingcart would not be something that the other person could easily see. If the URI was http://example.com/shoppingcarts/cart-12 then it could potentially be visible (e.g. if you had set a public flag on the cart, or if you and a colleague had a login each to a purchasing account on example.com).
+Example:“Hey, what address do I need to set on my account?” If the url is http://example.com/address then it likely represents the address of the currently logged in person. And what I will see (my address) is a different resource from what you will see (your address).
+Same type of resource (address). Different instance: mine vs. yours.
+In this case consider a URI design of http://example.com/users/user-9/address.
+Then it is clear that we are talking about the address of a specific person. Whether you can see my address is a different matter.
+Stateless URLs can improve scalability
+A beneficial side effect of stateless URIs, where you avoid storing attributes associated with a session is that your application can scale across hardware more easily. As it will not matter, or matter as much if they shift from one web server to another since the URLs they see do no depend on some session ‘state’. e.g. worst case scenario they may just need to re-log in. To re-establish their identity.
+Personal URLs
+There is value having a URI like http://example.com/contact-details (meaning ‘my contact details’). Or preferably something that indicates it belongs to the current user, like, http://example.com/users/user-me/contact-details.
+e.g. you may have a static page that wants to link to the user’s contact details. And at the time you show the page they may not be logged in.
+In that case http://example.com/users/user-me/contact-details could prompt for a login. Or if the user is logged in they the page could redirect to URL like, say, http://example.com/users/user-9-peter/contact-details
+The redirect in this case is important. Since the page on which the user ends up is their contact details resource. Whereas http://example.com/users/user-me/contact-details is a resource to find your contact details’ location.
+Summary: if a resource is context sensitive (e.g. to a current user) create a separate resource finder URL. Make it clear that resource URI is context sensitive (e.g. including words like me or my in it). And have that resource redirect to the actual resource when it is used.
+Further example: http://example.com/forecasts/cambridge/today redirects to, say, http://example.com/forecasts/cambridge/2009-04-26
+Extension or no extension
+If you use JSP then your files probably have a .jsp extension. And similarly for PHP and other apps. In an ideal world the technology you use on the back end should not force its way into the user’s face.
+Some sites have a .en URI for an English version of the content and a different URI with a .fr extension for a French localized version of the page. Would it not be better if a user could go to http://example.com/aboutus and get the page in their preferred language. And then share that URL with someone else who sees it in their own language?
+Some applications return different data if the user adds a different extension. e.g. they may ask for contacts.xml or contacts.json. But different URIs imply different resources. Are the two data formats really two different resources? Or just two different representations of the same resource.
+With HTTP there are other ways you can negotiate content. e.g. via the Accept header.
+I assert that REST-ful URIs should identify a single resource. And different representations of that resource can be ‘negotiated’. e.g. via HTTP headers. I assert that things like language localizations, data formats, read only views, HTML forms, summary views, detail views, etc, are all just different representations of the same resource. I assert developers should work to keep all those representations on the same URI.
+I assert that we avoid extensions to indicate the representation of the resource.
+Using Accept HTTP request headers to negotiate views.
+Having all representations of a resource on a single URI can be a tricky task for developers to pull off. It requires having a lot of control over receipt/dispatch of HTTP requests. And full and easy control of HTTP request and response headers. Not to mention being able to serve up different human and machine languages and views for resources.
+Standard ways to negotiate the representation of a resource:
+
+Accept: text/html will return a full web page with site navigation and other links
+Accept-Language to control the localization of the resource between different human languages.
+Accept: application/xml and application/json to get back data in these popular formats.
+
+Standard Accept headers break down with some view types
+But how do you negotiate other representations like a summary read only view of a resource /customer-9;summary? Or a detail view /customer-9?detail=Y. Or a form to edit that person: /customer-9/edit
+These are introducing new URIs (suggesting these are therefore different resources). Yet I am asserting that these things are ‘mere’ representations of the same resource, not different resources.
+But how else to solve the problem? These are all HTML pages (for argument sake). And we’ve only got the one text/html media type.
+Or have we?
+Using ‘vendor specific’ Accept headers
+Instead, RedRata will be trialing a method to leave the URIs alone and just use a different Accept header for the odd/particular representations we need. We will be using ‘vnd’ vendor specific, made-up media types.
+The RedRata vendor specific Accept types
+RedRata uses the {type}/vnd.{company}{type}+{subtype} convention.
+e.g. text/vnd.redrata.summary+html; application/vnd.redrata.deep+json.
+We will be using those types to differentiate between, say a regular Accept: text/html (returning a page with the resource and all the site navigation) and say the following:
+
+Accept: text/vnd.redrata.summary+html returns, say, a HTML div element containing a read only summary of a resource. e.g. for a person maybe just their name. Or name and email. But not all their details: like address, phone, notes.
+Accept: text/vnd.redrata.detail+html the full detail for, say, a person. But it would exclude the ‘fluff’ like site navigation, ads, and other things not directly related to the person resource.
+Accept: text/vnd.redrata.edit+html returns, say, a HTML div element containing a form element for editing the resource. With the form pre-populated with the resource’s current settings.
+Accept: application/vnd.redrata.deep+json for a deep copy of a resource’s JSON and all its sub-resources. i.e. grabbing everything in one HTTP request
+Accept: application/vnd.redrata.shallow+json for a shallow copy of a resource’s JSON (excluding any sub-resources). i.e. grabbing everything in one HTTP request
+Accept: application/vnd.redrata.shallow+xml and application/vnd.redrata.deep+xml work the same way, but for XML
+
+I am not aware of anyone else using this Accept approach with vnd (vendor-specific) media types.
+If you think the approach makes sense, please use it in your apps and help make our non-conventional approach more conventional. Heck, we may even go so far as to register those media types.
+More available views of a resource => more usable API
+One of the goals RedRata has is that the applications we create with our REST-ful APIs will be easily embedded into our customer’s sites. e.g. with a quick Javascript/ajax call to yank a ‘bit’ of information out of our app.
+By offering a variety of views (in HTML and JSON/XML) we have a better chance of being able to return something most suitable for our customers and users.
+Do cool URIs ever change?
+W3.org asserts that cool URIs do not change.
+I assert that seems a good guideline in most cases.
+Balance that against:
+
+Keeping things backwards compatible adds extra effort.
+Application resource structures change. And that should naturally cause URIs to change so they better reflect reality.
+We can improve our URIs over time.
+Good REST-ful applications should represent their state in their representations. For example by providing hyperlinks to other resources. A good REST-ful application should be fully navigable to anyone if they start at the / URI.
+If google can follow links on your site to get to the content, then the user will likely be able to find it again. 99% of the pages I need to ‘get back to’ I get back to by searching for content on that page/resource. Particularly when I remember the domain it was on and I can slap a site:example.com into my google query.
+URIs do break. It is just a fact of life. People, and web services ‘cope’. No one or no service should expect to rely on unchanging URLs and get away with it for to long.
+
+To avoid URIs-that-change as much as possible consider keeping changeable/variable information out of the URI. e.g. Avoid using a user’s username in their home page URL if that username can change. Rather use something that will not change. e.g. a database id.
+More readable URIs using unique-id-plus-redundant-information (UPRI)
+How do you balance URIs-that-dont-change (implemented using unique, immutable database ids) with nice readable URIs (where the readable bit – for example a username or a conversation- or blog-post-subject – is liable to change?
+Consider using the database id plus some other redundant info (like a username or name). The redundant information is not necessary to find the resource. If you have the unique, immutable id, like the database id, then you do not care about the other bits in the URI.
+e.g. /conversations/conversation-9-how-do-i-change-billing-details
+Canonical urls: coping with different URIs for the same resource
+With the unique-id-plus-redundant-information (UPRI) approach you could end up with different URIs for the same thing. And that is not ideal.
+In the case of different URIs pointing to the same resource (e.g. when you are using unique, immutable ids plus ‘redundant bits’) you should consider indicating in your response the ‘canonical’ or preferred link for that resource.
+You can do this inside HTML’s HEAD’s REL tag. Or in HTTP response headers. Using Location, Content-Location or Link
+e.g. see Google’s post on specifying canonical URLs or Mark Nottingham’s Link header proposal. See also Ben Ramsey’s cool URIs don’t change post.
+Redirects/Locations work, but who wants the HTTP latency overhead? Plus if you use a pretty URI that then goes straight to a different location (and changes the browser address bar) then no one will get to appreciate your pretty, readable URI. And they will likely feel less inclined to love it and bookmark it and tell their friends on social network websites about it.
+Browser urls are user interface (UI)
+URLs that appear in the browser address bar are part of the UI (user interaction). They MUST be hackable.
+So any path used in a browser you’d expect to produce a decent HTML page all the way up the ‘tree’. e.g. you’d want there to be no 404s. Nor any ‘access denieds’.
+The digging-deeper-path-and-backspace convention
+General rule: if you are on a page and you are clicking ‘into’ an item on that page, drilling down into more detail on that item, then the we would generally just add the extra path segment to the original URI. e.g. from conversation page to todo list item would be /conversations/conversation-1 becomes /conversations/conversation-1/todo-list-5. Thus you can go ‘back’ to where you were by removing the end path segment.
+General rule (rephrased): If you are clicking down a resource heirarchy (e.g from conversations to conversation to conversation item to …) the back key SHOULD be the same in most cases as removing the URL’s last path segment.
+Similarly if you are on /conversations/conversation-1 and you click on the “all todo lists in this conversation” link you could end up on /conversations/conversation-1/todo-lists. From there you click on a particular todo list. In this case you get to /conversations/conversation-1/todo-lists/todo-list-5 . You can remove the last and end back up on the page you had come from, satisfying the digging-deeper-path-and-backspace rule. But note that /conversations/conversation-1/todo-lists/todo-list-5 and /conversations/conversation-1/todo-list-5 will point to the same resource. So you would want to use the HTML or response headers to indicate the canonical url.
+Putting our URI design thoughts into practice
+The first step in URI design is to identify your resources. In the examples here we will be talking about a hypothetical application that manages ‘conversations’.  OK, its not hypothetical.  It is an actual application we are building.  And this is the actual document where we try to figure out what our URIs are going to look like.
+The main resources/things in our application are conversations. Each conversation can have one or more conversation items like a message going back or forth; or a todo list; or a status update. And some of the conversation items can have collections of other resources. e.g. a todo list can have a number of associated todo items.
+Choosing a URI schemes for resource hierarchies
+Let us look at what URIs we could use to represent our conversation-related resources.
+plural-root-plus-singular-root: e.g. /conversations and /conversation/{id}
+/conversations : all conversations/conversation/{id} : a specific conversation (note singular not plural)
+Cons: You can’t ‘hack’ the url. If you remove the id you get /conversation and not the list of conversations you were expecting/hoping for (which is at /conversations)
+plural-singular-id: e.g. /conversations/conversation/{id}
+/conversations : all conversations/conversations/conversation/{id} : a specific conversation
+Issue: what is the page at “/conversations/conversation” going to show? Do you want a page there? If you do not have a page that made sense to show there then that URI is not really ‘hackable’.
+Issue: it is kinda long
+plural-id: e.g. /conversations/{id}
+/conversations : all conversations/conversations/{id} : a specific conversation
+Pro: vs. option plural-root-plus-singular-root you can remove bits from the path and work up the ownership heirarchy
+Cons: If you wanted to use a url like “/conversations/new” then you’d need to be able to dissambiguate a conversation like “/conversations/5431″. e.g. if all your conversation ids are numbers then this could work well. Else you’d need to avoid naming collisions in case you ever had a conversation id of ‘new’. If this could be the case you may be better off using the plural-name-and-id template.
+Option plural-id-id-id /conversations/{id}/{id}/{id}
+What about when you have deeply nested resources?
+/conversations : all conversations/conversations/{id} : a specific conversation/conversations/{id}/{id} : a specific conversation item/conversations/{id}/{id}/{id} : e.g. a todo item on a todo list on a particular conversation
+Disadvantage: with deeply nested hierarchies you lose meaning about what each path is
+plural-name-id-name-id-name-id: e.g. /conversations/conversation/{id}/todo-lists/{id}/todos/{id}
+/conversations/conversation/{id}/todo-lists/{id}/todos/{id} : e.g. a todo item on a todo list on a particular conversation
+Advantage: you know what each id means.
+Disadvantage: If you expose /conversations/conversation/{id}/todo-lists/{id}/todos/{id} in a browser url bar, then you’d need to support having a UI for having each part of that directory tree. e.g. /conversations/conversation/{id}/todo-lists/{id}/todos you may want to do that, if so fine. Else if you don’t want to provide a UI for that there would be ‘an issue’. e.g. user gets error page. Meaning the URI is not so hackable.
+Option plural-name-and-id /conversations/conversation-{id}
+/conversations : all conversations/conversations/conversation-{id} : a specific conversation
+Pros: similar to plural-id.
+plural-name-and-id-name-and-id-name-and-id: e.g. /conversations/conversation-{id}/todo-list-{id}/todo-{id}
+We extend the plural-name-and-id for nested and deeply nested resources.
+/conversations : all conversations/conversations/conversation-{id} : a specific conversation/conversations/conversation-{id}/todo-list-{id}/todo-{id} : e.g. a todo item on a todo list on a particular conversation
+Advantages: hacking the url by removing a path will give you the todolist, the whole conversation, or a set of conversations
+At RedRata we are opting to use this plural-name-and-id template for nested resources.
+/conversations/conversation-{id}/todo-list-{id}/todo-{id} : e.g. a todo item on a todo list on a particular conversation. And if you remove the last path you get /conversations/conversation-{id}/todo-list-{id}, the todo list and all its items. And if you remove the last path from that you get /conversations/conversation-{id} the conversation.
+In this example, there is no ‘user interface’ to the URL to get an individual conversation item. Why not? Well what if we don’t want to provide that page? The resource exists. We just don’t want a user to go there and get a ‘hey, no content we want to show you for this page message’
+Of course we may change our minds later on and want to have a page available that shows just a single conversation item. i.e. a single message in a conversation. In that case we can expose a url like (just a slash has been added):
+/conversations/conversation-{id}/todo-list-{id}/todo-{id}
+name-plus-id-plus-redundant: e.g. /conversations/conversation-9-where-is-apache-installed
+We can convert the unique, but opaque, /conversation/conversation-{id} to the just as permanent but more readable /conversation/conversation-{id}-{subject}
+We do the database lookup based on the id. We ignore the subject (as that could change over time).
+On our response we indicate the canonical resource e.g. /conversation/conversation-{id}.
+Pros: user friendly, permanent URICons: a bit long, a bit of extra work to respond with the canonical resource location.
+Sample URLs for the RedRata ‘commapp’
+Hackable urls:/conversations/conversation-{id}/todo-list-{id}/todo-{id}/conversations/conversation-{id}/message-{id}/conversations/conversation-{id}/email-{id}/conversations/conversation-{id}/messages/conversations/conversation-{id}/messages/message-{id}/conversations/conversation-{id}/message-new – for creating new messages. After the message is created it will have an id. And the url will be the same except the ‘new’ becomes the id. Nice and neat.
+Creating resources
+Creating new resourcess (when that resource’s parent does not exist yet) presents a particular challenge with REST-ful applications.
+The REST-ful policing squads will knock on your door if you overtly offer verbs in your urls. Like /conversations/create-new-conversation. That is seen as exposing a process not a resource. You could always have your defense lawyer argue the process is the resource, I suppose.
+You could send a HTTP POST to a URI like /conversations to create a resource with. But that could be ambiguous. What would that create? A conversation? What if other things lived under conversations? Like staff? Or audit logs? Or billable hours?
+Here are some examples of URIs we could use instead:/conversations/conversatation-{id}/message-new – existing conversation; create message/conversations/message-new – create a new message and while we are at it it would also create a new conversation in which to put it.
+These URIs would return information (e.g. an HTML form, or a prototype JSON/XML representation on a HTTP GET). And would create the new resource on a HTTP POST.
+Here are some URIs we would likely not use:/conversations/conversatation-new/message-new – implies /conversations/conversatation-new creates a new converstation. But that isn’t something we want to allow them to do. i.e. this URI is hackable in a way we do not want it to be/conversations/conversatation/message-new – implies the same as /conversations/message-new but if we had nothing to show at /conversations/conversatation then this url would be hackable in a ‘bad way’.
+Direct URLs vs. hackable URLs
+With most deeply nested resources if you have the resources ID you can probably figure out the objects that ‘own’ it ‘up the tree’. In this case you can have short/simple/direct urls like:/conversation-{id}/message-{id}
+e.g. same resource:/conversations/conversation-{id}/messages/message-{id} (which implies there is a meaningful page at /conversations/conversation-{id}/messages, say one that listed all messages – cf. todo lists, for a conversation)/conversations/conversation-{id}/message-{id}/message-{id}
+These direct URLs may be easy/quick/handy for programmers. e.g. the makers of the REST-ful service, or developers using the REST-ful service as a client.
+They are not easily ‘hackable’ by end users. e.g. you cannot go from that direct url to the containing resource. So do not use them in where you would need a hackable/discoverable/end-user-editable url.
+As usual when there is a choice of URIs for a single resource select your canonical URI and report it in your response.
+Some RedRata conventions
+The ‘main’ url is /conversations/conversation-{id}
+There MAY be a link on individual conversation items. e.g. that goes to /conversations/conversation-{id}/message-{id}
+IF you have a page that shows a list of message type items in a conversation have /conversations/conversation-{id}/messages
+IF you click from that page to an individual page then that page’s url SHOULD be /conversations/conversation-{id}/messages/message-{id}
+Apparently the theme I am using does not have user comments on pages, just posts, so if you have any thoughts on this page you’ll need to make any comments over on this blog post.
+
+This post is about URI naming.  Designing URI names.  Some tips and rules and conventions that you can follow when figuring out your application’s URIs.  The focus is on URIs for ‘REST-ful’ applications.  But many of the tips apply to any kind of website or application.
+REST-ful URIs and non-REST-ful URIs
+A REST-ful URI is a URI that identifies a domain resource (like a book or a shelf or a book loan in a library application) rather than an application resource (like a web page or a form in your application or website).
+Typically ‘REST-ful’ URIs are for APIs.  For programmers.  But in many cases they will serve just as well for a ‘regular’ website.
+non-REST-ful URIs are more likely to identify application resources like web pages rather than domain resources:
+
+/admin/updatebook.jsp?book=5
+/bookview.jsp?book=5
+/bookandreviews.jsp?book=5
+
+/admin/updatebook.jsp?book=5
+/bookview.jsp?book=5
+/bookandreviews.jsp?book=5
+PS: There can be confusion about URIs and URLs (and URNs!).  To get a URL just tack on a server (example.com) and a protocol (http or ftp) to a URI (/example): http://example.com/example.  The URI identifies the resource.  And a URL adds some information about how to get it.
+“URIs do not matter with REST-ful applications”
+This is what some people say.  See the comments below.  But is not true:  URIs do matter.  URI design matters.  And URI design for REST-ful applications matters even more.
+not true
+The reason is that REST-ful apps are all about domain resources (like books and shelves and loans in a library application) rather than application resources (like forms to reserve a book or pages displaying a book or who has loaned what).
+With REST-ful applications the first thing you need to do is to identify the resources you are representing in your system.  And URI-design is all about how you can consistently name every one of those resources.
+What are the criteria for a good REST-ful URI?
+I assert a good REST-ful URI is:
+
+Short (as possible). This makes them easy to write down or spell or remember.
+Hackable ‘up the tree’. The user should be able to remove the leaf path and get an expected page back. e.g. http://example.com/cars/alfa-romeos/gt you could remove the gt bit and expect to get back all the alfa-romeos.
+Meaningful. Describes the resource. I should have a hint at the type of resource I am looking at (a blog post, or a conversation). Ideally I would have a clue about the actual content of the URI (e.g. a uri like uri-design-essay)
+Predictable. Human-guessable. If your URLs are meaningful they may also be predictable. If your users understand them and can predict what a url for a given resource is then may be able to go ‘straight there’ without having to find a hyperlink on a page. If your URIs are predictable, then your developers will argue less over what should be used for new resource types.
+Help visualize the site structure. This helps make them more ‘predictable’.
+Readable.
+Nouns, not verbs.
+Query args (everything after the ?) are used on querying/searching resources (exclusively). They contain data the affects the query.
+Consistent. If you use extensions, do not use .html in one location and .htm in another. Consistent patterns make URIs more predictable.
+Stateless.
+Return a representation (e.g. XML or json) based on the request headers, like Accept and Accept-Language rather than a change in the URI.
+Tied to a resource. Permanent. The URI will continue to work while the resource exists, and despite the resource potentially changing over time.
+Report canonical URIs. If you have two different URIs for the same resource, ensure you put the canonical URL in the response.
+Follows the digging-deeper-path-and-backspace convention. URI path can be used like a backspace.
+Uses name1=value1;name2=value2 (aka matrix parameters) when filtering collections of resources.
+
+Short (as possible). This makes them easy to write down or spell or remember.
+Hackable ‘up the tree’. The user should be able to remove the leaf path and get an expected page back. e.g. http://example.com/cars/alfa-romeos/gt you could remove the gt bit and expect to get back all the alfa-romeos.
+Meaningful. Describes the resource. I should have a hint at the type of resource I am looking at (a blog post, or a conversation). Ideally I would have a clue about the actual content of the URI (e.g. a uri like uri-design-essay)
+Predictable. Human-guessable. If your URLs are meaningful they may also be predictable. If your users understand them and can predict what a url for a given resource is then may be able to go ‘straight there’ without having to find a hyperlink on a page. If your URIs are predictable, then your developers will argue less over what should be used for new resource types.
+Help visualize the site structure. This helps make them more ‘predictable’.
+Readable.
+Nouns, not verbs.
+Query args (everything after the ?) are used on querying/searching resources (exclusively). They contain data the affects the query.
+Consistent. If you use extensions, do not use .html in one location and .htm in another. Consistent patterns make URIs more predictable.
+Stateless.
+Return a representation (e.g. XML or json) based on the request headers, like Accept and Accept-Language rather than a change in the URI.
+Tied to a resource. Permanent. The URI will continue to work while the resource exists, and despite the resource potentially changing over time.
+Report canonical URIs. If you have two different URIs for the same resource, ensure you put the canonical URL in the response.
+Follows the digging-deeper-path-and-backspace convention. URI path can be used like a backspace.
+Uses name1=value1;name2=value2 (aka matrix parameters) when filtering collections of resources.
+Some of these criteria pull against each other. For example, how can I make a meaningful-yet-short uri? URI-design rightly remains an art not a science.
+Tips for creating good REST-ful URIs
+
+Lower case. Mixed case can be harder to type in. Upper- and, arguably, mixed-case can be less readable. Mixed case may also cause ambiguity. Is http://example.com/TheBigFatCat different to http://example.com/thebigfatcat
+Use hypens rather than spaces or underlines. hyphens-seem-to-be-the-way-most-sites-do-it. The resulting url is readable enough. using_underlines_in_your_url may not be as SEO friendly. And I find they are not as asthetic as hypens. Spaces in urls quickly degrade into a sewer of url encoded %20s.
+Use a plural path for collections. e.g. /conversations.
+Put individual resources under the plural collection path. e.g. /conversations/conversation-9. Others may disagree and argue it be something like /conversation-9. But I assert the individual resource fits nicely under the collection. Plus it means I can ‘hack the url’ up a level and remove the conversation part and be left on the /conversations page listing all (or some) of the conversations.
+Favor hackable urls over direct urls.
+
+Lower case. Mixed case can be harder to type in. Upper- and, arguably, mixed-case can be less readable. Mixed case may also cause ambiguity. Is http://example.com/TheBigFatCat different to http://example.com/thebigfatcat
+Use hypens rather than spaces or underlines. hyphens-seem-to-be-the-way-most-sites-do-it. The resulting url is readable enough. using_underlines_in_your_url may not be as SEO friendly. And I find they are not as asthetic as hypens. Spaces in urls quickly degrade into a sewer of url encoded %20s.
+Use a plural path for collections. e.g. /conversations.
+Put individual resources under the plural collection path. e.g. /conversations/conversation-9. Others may disagree and argue it be something like /conversation-9. But I assert the individual resource fits nicely under the collection. Plus it means I can ‘hack the url’ up a level and remove the conversation part and be left on the /conversations page listing all (or some) of the conversations.
+Others may disagree
+Favor hackable urls over direct urls.
+Things to avoid
+
+Avoid query args on an non-query/non-search resource. e.g. prefer /conversations/conversation-12 over /conversations/conversation.php?conversation_id=12
+Do not use mixed or upper-case in URIs.
+Avoid extensions (avoid .en or .fr; avoid .html or .htm or .php or .jsp; avoid .xml or .json).
+Do not use characters that require url encoding in URIs (e.g. spaces).
+Avoid direct URIs e.g. /todo-item-{id} for hierarchical data. Instead expose its context: /conversations/conversation-9-help-me/todo-list-8-setup-tasks/todo-item-12-install-apache
+
+Avoid query args on an non-query/non-search resource. e.g. prefer /conversations/conversation-12 over /conversations/conversation.php?conversation_id=12
+Do not use mixed or upper-case in URIs.
+Avoid extensions (avoid .en or .fr; avoid .html or .htm or .php or .jsp; avoid .xml or .json).
+Do not use characters that require url encoding in URIs (e.g. spaces).
+Avoid direct URIs e.g. /todo-item-{id} for hierarchical data. Instead expose its context: /conversations/conversation-9-help-me/todo-list-8-setup-tasks/todo-item-12-install-apache
+Benefits of good URI design
+
+Other web sites may use your URIs more if they ‘look good’.
+Other web sites may use your URIs more if they do not change. If there is no link rot.
+Good URIs improve your site usability.
+
+Readable URIs increase your search engine traffic. People actually see and read URLs in Google’s search results. And they are more likely to go to a page if the name of the page matches what they are looking for.
+
+Other web sites may use your URIs more if they ‘look good’.
+Other web sites may use your URIs more if they do not change. If there is no link rot.
+Good URIs improve your site usability.
+
+Readable URIs increase your search engine traffic. People actually see and read URLs in Google’s search results. And they are more likely to go to a page if the name of the page matches what they are looking for.
+Readable URIs increase your search engine traffic
+How good URI design improves usability
+Users can find their way around more easily when there are good URIs. They have a chance of getting themselves ‘unstuck’ inside the site structure. e.g. if they are at /conversations/conversation-10/todo-list-12 they can easily enough pop up to /conversations where all the current conversations are displayed.
+A good programmer looking at well designed URIs in a REST-ful API should be able to visualize your API merely by knowing some of the URLs.
+Non-REST-ful URLs
+I have always aimed to create ‘decent’ urls. In non-REST-ful apps they would be good solid urls like:
+
+http://rimuhosting.com/ticket/startticket.jsp
+https://pingability.com/cp/register.jsp
+http://rimuhosting.com/order/startorder1.jsp?type=2&t-vps
+
+http://rimuhosting.com/ticket/startticket.jsp
+http://rimuhosting.com/ticket/startticket.jsp
+https://pingability.com/cp/register.jsp
+https://pingability.com/cp/register.jsp
+http://rimuhosting.com/order/startorder1.jsp?type=2&t-vps
+http://rimuhosting.com/order/startorder1.jsp?type=2&t-vps
+Typically when there is a different kind of page I create an JSP for that page.  And the page name will reflect whatever is happening on that page.
+Non-REST-ful URIs are fine, they are just non-REST-ful.
+This post is not a debate about which is ‘better’ out of REST-ful and non-REST-ful URIs. This post is about what makes a good REST-ful URI. If your URI is non-REST-ful it is simply non-REST-ful, and I make no claim that it is ‘good’ or ‘bad’.
+not
+REST-ful URIs
+The RedRata team has recently started trying to create an application and we would like it to be a ‘REST-ful’ application.
+REST-ful applications do not implement a specification (like SOAP, or XML-RPC, or ATOM). There is no validation service that will tell me if my ‘REST-ful’ application is REST 1.0 compliant. There is no REST 1.0 BTW.
+Instead REST-ful applications are applications that follow REST-ful conventions.
+And there are conventions around what makes a REST-ful URI.
+I’ve found that coming up with REST-ful URIs that I, and others, think follows proper REST-ful conventions is difficult.
+But the difficulty comes because of the importance of good URI design. Not so much that it follows some convention that a bunch of technologists have come up with. But because it improves end user usability.
+Examples of (possibly) REST-ful URIs
+In a quickly-recognizable-as-REST-ful app we would possibly have URLs like. e.g.
+
+http://rimuhosting.com/users/user-9/contact-details
+http://rimuhosting.com/plans;type=vps to show VPS plans
+http://rimuhosting.com/plans/plan-miro2b to show the MIRO2B plan. Aside: this redrata.com WordPress blog runs on a RimuHosting Miro2 plan.
+http://rimuhosting.com/carts/cart-2/server-1 – a server plan added to the cart, in preparation of checkout
+
+http://rimuhosting.com/users/user-9/contact-details
+http://rimuhosting.com/plans;type=vps to show VPS plans
+http://rimuhosting.com/plans/plan-miro2b to show the MIRO2B plan. Aside: this redrata.com WordPress blog runs on a RimuHosting Miro2 plan.
+http://rimuhosting.com/carts/cart-2/server-1 – a server plan added to the cart, in preparation of checkout
+5 developers; an infinite selection of URLs; chaos ensues
+I came up with those sample URLs just now. If I were to come up with the same resources tomorrow would that list look the same? What if another developer in my team attempted the same task?
+Would the names be similar? Would we argue endlessly about which was the better way? Would there be any concrete guidelines on which we could select one set over another? Would we even be aware of the URI design importance to worry? Would usability issues and development chaos ensue?
+How to decide on which template or conventions do you use? How do you get everyone on the same page? How can you make it so two developers independently adding a new resource to the app would use the same or similar URI?
+In order to try and get some consistency over how we design urls in RedRata REST-ful apps we have tried to come up with a convention for us to use. That convention and a discussion of the alternatives follows.
+Nouns, not verbs
+REST-ish URLs  identify resources.  Nouns.  They tell you what they ‘are’.
+REST-ful URIs should not tell you what they ‘do’.  No ‘getPlan’.  Nor ‘start-order’.
+The ‘do’ comes when you apply a verb; an HTTP method to the URL.  e.g. a HTTP PUT to a URI means update that resource.  A DELETE means to delete it.  A POST typically means ‘create something for me’ (e.g. a new order, or a shopping cart).
+Stateless URIs
+An example. On RimuHosting we have some long running operations. e.g. when we move a VPS from one host server across the globe to a different data center. So we create a move status URL and give it a status id. And then we use Ajax to keep pushing updates to that URL. Or the user can reload the page.
+There is a problem. That URL only works for that user on that session. They could not bookmark it, go home, and see it at home. They cannot send it to a colleague and say ‘Keep an eye on this move’ for me.
+Good URIs (REST-ful or otherwise) should be stateless. If I am looking at a document I should be able to share that URL with someone and they should be able to access the same resource.
+What they see may differ from what I see. e.g. since I may be logged in as an admin on a site and see a few more options than they do as a guest. But this is just a different representation of the same resource. Or they may even get a “not authorized” response if they are a guest, or a logged in user without the authority to see the resource.
+To get a stateless URI avoid reliance on session attributes. Transient things. If you need to store something, store it in a database (where database is probably some SQL database, but anything that is accessible by someone with a different session ID will do).
+Examples:“Hey, have I got all the things you needed in my shopping cart?” A URL of http://example.com/shoppingcart would not be something that the other person could easily see. If the URI was http://example.com/shoppingcarts/cart-12 then it could potentially be visible (e.g. if you had set a public flag on the cart, or if you and a colleague had a login each to a purchasing account on example.com).
+
+Example:“Hey, what address do I need to set on my account?” If the url is http://example.com/address then it likely represents the address of the currently logged in person. And what I will see (my address) is a different resource from what you will see (your address).
+
+Same type of resource (address). Different instance: mine vs. yours.
+In this case consider a URI design of http://example.com/users/user-9/address.
+Then it is clear that we are talking about the address of a specific person. Whether you can see my address is a different matter.
+Stateless URLs can improve scalability
+A beneficial side effect of stateless URIs, where you avoid storing attributes associated with a session is that your application can scale across hardware more easily. As it will not matter, or matter as much if they shift from one web server to another since the URLs they see do no depend on some session ‘state’. e.g. worst case scenario they may just need to re-log in. To re-establish their identity.
+Personal URLs
+There is value having a URI like http://example.com/contact-details (meaning ‘my contact details’). Or preferably something that indicates it belongs to the current user, like, http://example.com/users/user-me/contact-details.
+e.g. you may have a static page that wants to link to the user’s contact details. And at the time you show the page they may not be logged in.
+In that case http://example.com/users/user-me/contact-details could prompt for a login. Or if the user is logged in they the page could redirect to URL like, say, http://example.com/users/user-9-peter/contact-details
+The redirect in this case is important. Since the page on which the user ends up is their contact details resource. Whereas http://example.com/users/user-me/contact-details is a resource to find your contact details’ location.
+find
+Summary: if a resource is context sensitive (e.g. to a current user) create a separate resource finder URL. Make it clear that resource URI is context sensitive (e.g. including words like me or my in it). And have that resource redirect to the actual resource when it is used.
+Further example: http://example.com/forecasts/cambridge/today redirects to, say, http://example.com/forecasts/cambridge/2009-04-26
+Extension or no extension
+If you use JSP then your files probably have a .jsp extension. And similarly for PHP and other apps. In an ideal world the technology you use on the back end should not force its way into the user’s face.
+Some sites have a .en URI for an English version of the content and a different URI with a .fr extension for a French localized version of the page. Would it not be better if a user could go to http://example.com/aboutus and get the page in their preferred language. And then share that URL with someone else who sees it in their own language?
+Some applications return different data if the user adds a different extension. e.g. they may ask for contacts.xml or contacts.json. But different URIs imply different resources. Are the two data formats really two different resources? Or just two different representations of the same resource.
+With HTTP there are other ways you can negotiate content. e.g. via the Accept header.
+I assert that REST-ful URIs should identify a single resource. And different representations of that resource can be ‘negotiated’. e.g. via HTTP headers. I assert that things like language localizations, data formats, read only views, HTML forms, summary views, detail views, etc, are all just different representations of the same resource. I assert developers should work to keep all those representations on the same URI.
+I assert that we avoid extensions to indicate the representation of the resource.
+Using Accept HTTP request headers to negotiate views.
+Having all representations of a resource on a single URI can be a tricky task for developers to pull off. It requires having a lot of control over receipt/dispatch of HTTP requests. And full and easy control of HTTP request and response headers. Not to mention being able to serve up different human and machine languages and views for resources.
+Standard ways to negotiate the representation of a resource:
+
+Accept: text/html will return a full web page with site navigation and other links
+Accept-Language to control the localization of the resource between different human languages.
+Accept: application/xml and application/json to get back data in these popular formats.
+
+Accept: text/html will return a full web page with site navigation and other links
+Accept-Language to control the localization of the resource between different human languages.
+Accept: application/xml and application/json to get back data in these popular formats.
+Standard Accept headers break down with some view types
+But how do you negotiate other representations like a summary read only view of a resource /customer-9;summary? Or a detail view /customer-9?detail=Y. Or a form to edit that person: /customer-9/edit
+These are introducing new URIs (suggesting these are therefore different resources). Yet I am asserting that these things are ‘mere’ representations of the same resource, not different resources.
+But how else to solve the problem? These are all HTML pages (for argument sake). And we’ve only got the one text/html media type.
+Or have we?
+Using ‘vendor specific’ Accept headers
+Instead, RedRata will be trialing a method to leave the URIs alone and just use a different Accept header for the odd/particular representations we need. We will be using ‘vnd’ vendor specific, made-up media types.
+The RedRata vendor specific Accept types
+RedRata uses the {type}/vnd.{company}{type}+{subtype} convention.
+e.g. text/vnd.redrata.summary+html; application/vnd.redrata.deep+json.
+We will be using those types to differentiate between, say a regular Accept: text/html (returning a page with the resource and all the site navigation) and say the following:
+
+Accept: text/vnd.redrata.summary+html returns, say, a HTML div element containing a read only summary of a resource. e.g. for a person maybe just their name. Or name and email. But not all their details: like address, phone, notes.
+Accept: text/vnd.redrata.detail+html the full detail for, say, a person. But it would exclude the ‘fluff’ like site navigation, ads, and other things not directly related to the person resource.
+Accept: text/vnd.redrata.edit+html returns, say, a HTML div element containing a form element for editing the resource. With the form pre-populated with the resource’s current settings.
+Accept: application/vnd.redrata.deep+json for a deep copy of a resource’s JSON and all its sub-resources. i.e. grabbing everything in one HTTP request
+Accept: application/vnd.redrata.shallow+json for a shallow copy of a resource’s JSON (excluding any sub-resources). i.e. grabbing everything in one HTTP request
+Accept: application/vnd.redrata.shallow+xml and application/vnd.redrata.deep+xml work the same way, but for XML
+
+Accept: text/vnd.redrata.summary+html returns, say, a HTML div element containing a read only summary of a resource. e.g. for a person maybe just their name. Or name and email. But not all their details: like address, phone, notes.
+Accept: text/vnd.redrata.detail+html the full detail for, say, a person. But it would exclude the ‘fluff’ like site navigation, ads, and other things not directly related to the person resource.
+Accept: text/vnd.redrata.edit+html returns, say, a HTML div element containing a form element for editing the resource. With the form pre-populated with the resource’s current settings.
+Accept: application/vnd.redrata.deep+json for a deep copy of a resource’s JSON and all its sub-resources. i.e. grabbing everything in one HTTP request
+Accept: application/vnd.redrata.shallow+json for a shallow copy of a resource’s JSON (excluding any sub-resources). i.e. grabbing everything in one HTTP request
+Accept: application/vnd.redrata.shallow+xml and application/vnd.redrata.deep+xml work the same way, but for XML
+I am not aware of anyone else using this Accept approach with vnd (vendor-specific) media types.
+If you think the approach makes sense, please use it in your apps and help make our non-conventional approach more conventional. Heck, we may even go so far as to register those media types.
+we may even go so far as to register those media types
+More available views of a resource => more usable API
+One of the goals RedRata has is that the applications we create with our REST-ful APIs will be easily embedded into our customer’s sites. e.g. with a quick Javascript/ajax call to yank a ‘bit’ of information out of our app.
+By offering a variety of views (in HTML and JSON/XML) we have a better chance of being able to return something most suitable for our customers and users.
+Do cool URIs ever change?
+W3.org asserts that cool URIs do not change.
+cool URIs do not change
+I assert that seems a good guideline in most cases.
+Balance that against:
+
+Keeping things backwards compatible adds extra effort.
+Application resource structures change. And that should naturally cause URIs to change so they better reflect reality.
+We can improve our URIs over time.
+Good REST-ful applications should represent their state in their representations. For example by providing hyperlinks to other resources. A good REST-ful application should be fully navigable to anyone if they start at the / URI.
+If google can follow links on your site to get to the content, then the user will likely be able to find it again. 99% of the pages I need to ‘get back to’ I get back to by searching for content on that page/resource. Particularly when I remember the domain it was on and I can slap a site:example.com into my google query.
+URIs do break. It is just a fact of life. People, and web services ‘cope’. No one or no service should expect to rely on unchanging URLs and get away with it for to long.
+
+Keeping things backwards compatible adds extra effort.
+Application resource structures change. And that should naturally cause URIs to change so they better reflect reality.
+We can improve our URIs over time.
+Good REST-ful applications should represent their state in their representations. For example by providing hyperlinks to other resources. A good REST-ful application should be fully navigable to anyone if they start at the / URI.
+If google can follow links on your site to get to the content, then the user will likely be able to find it again. 99% of the pages I need to ‘get back to’ I get back to by searching for content on that page/resource. Particularly when I remember the domain it was on and I can slap a site:example.com into my google query.
+URIs do break. It is just a fact of life. People, and web services ‘cope’. No one or no service should expect to rely on unchanging URLs and get away with it for to long.
+do
+To avoid URIs-that-change as much as possible consider keeping changeable/variable information out of the URI. e.g. Avoid using a user’s username in their home page URL if that username can change. Rather use something that will not change. e.g. a database id.
+More readable URIs using unique-id-plus-redundant-information (UPRI)
+How do you balance URIs-that-dont-change (implemented using unique, immutable database ids) with nice readable URIs (where the readable bit – for example a username or a conversation- or blog-post-subject – is liable to change?
+Consider using the database id plus some other redundant info (like a username or name). The redundant information is not necessary to find the resource. If you have the unique, immutable id, like the database id, then you do not care about the other bits in the URI.
+e.g. /conversations/conversation-9-how-do-i-change-billing-details
+Canonical urls: coping with different URIs for the same resource
+With the unique-id-plus-redundant-information (UPRI) approach you could end up with different URIs for the same thing. And that is not ideal.
+In the case of different URIs pointing to the same resource (e.g. when you are using unique, immutable ids plus ‘redundant bits’) you should consider indicating in your response the ‘canonical’ or preferred link for that resource.
+You can do this inside HTML’s HEAD’s REL tag. Or in HTTP response headers. Using Location, Content-Location or Link
+e.g. see Google’s post on specifying canonical URLs or Mark Nottingham’s Link header proposal. See also Ben Ramsey’s cool URIs don’t change post.
+Google’s post on specifying canonical URLs
+Mark Nottingham’s Link header proposal
+Ben Ramsey’s cool URIs don’t change post
+Redirects/Locations work, but who wants the HTTP latency overhead? Plus if you use a pretty URI that then goes straight to a different location (and changes the browser address bar) then no one will get to appreciate your pretty, readable URI. And they will likely feel less inclined to love it and bookmark it and tell their friends on social network websites about it.
+Browser urls are user interface (UI)
+URLs that appear in the browser address bar are part of the UI (user interaction). They MUST be hackable.
+So any path used in a browser you’d expect to produce a decent HTML page all the way up the ‘tree’. e.g. you’d want there to be no 404s. Nor any ‘access denieds’.
+The digging-deeper-path-and-backspace convention
+General rule: if you are on a page and you are clicking ‘into’ an item on that page, drilling down into more detail on that item, then the we would generally just add the extra path segment to the original URI. e.g. from conversation page to todo list item would be /conversations/conversation-1 becomes /conversations/conversation-1/todo-list-5. Thus you can go ‘back’ to where you were by removing the end path segment.
+General rule (rephrased): If you are clicking down a resource heirarchy (e.g from conversations to conversation to conversation item to …) the back key SHOULD be the same in most cases as removing the URL’s last path segment.
+Similarly if you are on /conversations/conversation-1 and you click on the “all todo lists in this conversation” link you could end up on /conversations/conversation-1/todo-lists. From there you click on a particular todo list. In this case you get to /conversations/conversation-1/todo-lists/todo-list-5 . You can remove the last and end back up on the page you had come from, satisfying the digging-deeper-path-and-backspace rule. But note that /conversations/conversation-1/todo-lists/todo-list-5 and /conversations/conversation-1/todo-list-5 will point to the same resource. So you would want to use the HTML or response headers to indicate the canonical url.
+Putting our URI design thoughts into practice
+The first step in URI design is to identify your resources. In the examples here we will be talking about a hypothetical application that manages ‘conversations’.  OK, its not hypothetical.  It is an actual application we are building.  And this is the actual document where we try to figure out what our URIs are going to look like.
+The main resources/things in our application are conversations. Each conversation can have one or more conversation items like a message going back or forth; or a todo list; or a status update. And some of the conversation items can have collections of other resources. e.g. a todo list can have a number of associated todo items.
+Choosing a URI schemes for resource hierarchies
+Let us look at what URIs we could use to represent our conversation-related resources.
+plural-root-plus-singular-root: e.g. /conversations and /conversation/{id}
+/conversations : all conversations/conversation/{id} : a specific conversation (note singular not plural)
+
+Cons: You can’t ‘hack’ the url. If you remove the id you get /conversation and not the list of conversations you were expecting/hoping for (which is at /conversations)
+plural-singular-id: e.g. /conversations/conversation/{id}
+/conversations : all conversations/conversations/conversation/{id} : a specific conversation
+
+Issue: what is the page at “/conversations/conversation” going to show? Do you want a page there? If you do not have a page that made sense to show there then that URI is not really ‘hackable’.
+Issue: it is kinda long
+plural-id: e.g. /conversations/{id}
+/conversations : all conversations/conversations/{id} : a specific conversation
+
+Pro: vs. option plural-root-plus-singular-root you can remove bits from the path and work up the ownership heirarchy
+Cons: If you wanted to use a url like “/conversations/new” then you’d need to be able to dissambiguate a conversation like “/conversations/5431″. e.g. if all your conversation ids are numbers then this could work well. Else you’d need to avoid naming collisions in case you ever had a conversation id of ‘new’. If this could be the case you may be better off using the plural-name-and-id template.
+Option plural-id-id-id /conversations/{id}/{id}/{id}
+What about when you have deeply nested resources?
+/conversations : all conversations/conversations/{id} : a specific conversation/conversations/{id}/{id} : a specific conversation item/conversations/{id}/{id}/{id} : e.g. a todo item on a todo list on a particular conversation
+
+
+
+Disadvantage: with deeply nested hierarchies you lose meaning about what each path is
+plural-name-id-name-id-name-id: e.g. /conversations/conversation/{id}/todo-lists/{id}/todos/{id}
+/conversations/conversation/{id}/todo-lists/{id}/todos/{id} : e.g. a todo item on a todo list on a particular conversation
+Advantage: you know what each id means.
+Disadvantage: If you expose /conversations/conversation/{id}/todo-lists/{id}/todos/{id} in a browser url bar, then you’d need to support having a UI for having each part of that directory tree. e.g. /conversations/conversation/{id}/todo-lists/{id}/todos you may want to do that, if so fine. Else if you don’t want to provide a UI for that there would be ‘an issue’. e.g. user gets error page. Meaning the URI is not so hackable.
+Option plural-name-and-id /conversations/conversation-{id}
+/conversations : all conversations/conversations/conversation-{id} : a specific conversation
+
+Pros: similar to plural-id.
+plural-name-and-id-name-and-id-name-and-id: e.g. /conversations/conversation-{id}/todo-list-{id}/todo-{id}
+We extend the plural-name-and-id for nested and deeply nested resources.
+/conversations : all conversations/conversations/conversation-{id} : a specific conversation/conversations/conversation-{id}/todo-list-{id}/todo-{id} : e.g. a todo item on a todo list on a particular conversation
+
+
+Advantages: hacking the url by removing a path will give you the todolist, the whole conversation, or a set of conversations
+At RedRata we are opting to use this plural-name-and-id template for nested resources.
+/conversations/conversation-{id}/todo-list-{id}/todo-{id} : e.g. a todo item on a todo list on a particular conversation. And if you remove the last path you get /conversations/conversation-{id}/todo-list-{id}, the todo list and all its items. And if you remove the last path from that you get /conversations/conversation-{id} the conversation.
+In this example, there is no ‘user interface’ to the URL to get an individual conversation item. Why not? Well what if we don’t want to provide that page? The resource exists. We just don’t want a user to go there and get a ‘hey, no content we want to show you for this page message’
+Of course we may change our minds later on and want to have a page available that shows just a single conversation item. i.e. a single message in a conversation. In that case we can expose a url like (just a slash has been added):
+/conversations/conversation-{id}/todo-list-{id}/todo-{id}
+name-plus-id-plus-redundant: e.g. /conversations/conversation-9-where-is-apache-installed
+We can convert the unique, but opaque, /conversation/conversation-{id} to the just as permanent but more readable /conversation/conversation-{id}-{subject}
+We do the database lookup based on the id. We ignore the subject (as that could change over time).
+On our response we indicate the canonical resource e.g. /conversation/conversation-{id}.
+Pros: user friendly, permanent URICons: a bit long, a bit of extra work to respond with the canonical resource location.
+
+Sample URLs for the RedRata ‘commapp’
+Hackable urls:/conversations/conversation-{id}/todo-list-{id}/todo-{id}/conversations/conversation-{id}/message-{id}/conversations/conversation-{id}/email-{id}/conversations/conversation-{id}/messages/conversations/conversation-{id}/messages/message-{id}/conversations/conversation-{id}/message-new – for creating new messages. After the message is created it will have an id. And the url will be the same except the ‘new’ becomes the id. Nice and neat.
+
+
+
+
+
+
+Creating resources
+Creating new resourcess (when that resource’s parent does not exist yet) presents a particular challenge with REST-ful applications.
+The REST-ful policing squads will knock on your door if you overtly offer verbs in your urls. Like /conversations/create-new-conversation. That is seen as exposing a process not a resource. You could always have your defense lawyer argue the process is the resource, I suppose.
+is
+You could send a HTTP POST to a URI like /conversations to create a resource with. But that could be ambiguous. What would that create? A conversation? What if other things lived under conversations? Like staff? Or audit logs? Or billable hours?
+could
+Here are some examples of URIs we could use instead:/conversations/conversatation-{id}/message-new – existing conversation; create message/conversations/message-new – create a new message and while we are at it it would also create a new conversation in which to put it.
+
+
+These URIs would return information (e.g. an HTML form, or a prototype JSON/XML representation on a HTTP GET). And would create the new resource on a HTTP POST.
+Here are some URIs we would likely not use:/conversations/conversatation-new/message-new – implies /conversations/conversatation-new creates a new converstation. But that isn’t something we want to allow them to do. i.e. this URI is hackable in a way we do not want it to be/conversations/conversatation/message-new – implies the same as /conversations/message-new but if we had nothing to show at /conversations/conversatation then this url would be hackable in a ‘bad way’.
+not
+
+
+Direct URLs vs. hackable URLs
+With most deeply nested resources if you have the resources ID you can probably figure out the objects that ‘own’ it ‘up the tree’. In this case you can have short/simple/direct urls like:/conversation-{id}/message-{id}
+
+
+e.g. same resource:/conversations/conversation-{id}/messages/message-{id} (which implies there is a meaningful page at /conversations/conversation-{id}/messages, say one that listed all messages – cf. todo lists, for a conversation)/conversations/conversation-{id}/message-{id}/message-{id}
+
+
+
+These direct URLs may be easy/quick/handy for programmers. e.g. the makers of the REST-ful service, or developers using the REST-ful service as a client.
+They are not easily ‘hackable’ by end users. e.g. you cannot go from that direct url to the containing resource. So do not use them in where you would need a hackable/discoverable/end-user-editable url.
+As usual when there is a choice of URIs for a single resource select your canonical URI and report it in your response.
+Some RedRata conventions
+The ‘main’ url is /conversations/conversation-{id}
+There MAY be a link on individual conversation items. e.g. that goes to /conversations/conversation-{id}/message-{id}
+IF you have a page that shows a list of message type items in a conversation have /conversations/conversation-{id}/messages
+IF you click from that page to an individual page then that page’s url SHOULD be /conversations/conversation-{id}/messages/message-{id}
+Apparently the theme I am using does not have user comments on pages, just posts, so if you have any thoughts on this page you’ll need to make any comments over on this blog post.
+make any comments over on this blog post
+ 
