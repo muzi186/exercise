@@ -30,6 +30,7 @@ var reptile = observe({});
 
 reptile.on({
   url:function(url){
+    console.log('this:'+this);
     console.log('URL:'+url);
     var that = this;
     superagent
