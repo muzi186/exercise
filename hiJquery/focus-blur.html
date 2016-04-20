@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>焦点事件</title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+    <h3>焦点事件</h3>
+    输入名字: <input type="text" />
+    <p>请在上面的输入域中点击，使其获得焦点，然后在输入域外面点击，使其失去焦点。</p>
+</body>
+
+<script type="text/javascript">
+$(function(){
+    $("input").focus(function(){//获得焦点
+        $("input").css("background-color","#FFFFCC");
+    });
+    $("input").blur(function(){//失去焦点
+        $("input").css("background-color","#D6D6FF");
+    });
+})
+</script>
+
+</html>

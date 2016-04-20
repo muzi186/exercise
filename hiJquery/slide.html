@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style type="text/css">
+    div{
+        width:222px;
+        height:83px;
+        background-color:#e5eecc;
+        margin:0px
+    }
+    .btn{
+        width:222px;
+        height:23px;
+        background-color:#e5eecc;
+        margin-bottom:0px
+    }
+
+    </style>
+    <meta charset="utf-8">
+    <title>滑动效果</title>
+    <script src="js/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  在jQuery中，可以在元素上创建滑动效果。
+  jQuery提供了三种fade方法 slideDown()向下滑动元素、
+  slideUp()用于向上滑动元素、slideToggle()可以在 slideDown()
+  与 slideUp() 方法之间进行切换。
+
+<ul>
+  <li>
+  slideDown()语法：$(selector).slideDown(speed,callback);
+</li>
+<li>
+  slideUp()语法：$(selector).slideUp(speed,callback);
+</li>
+<li>
+  slideToggle()的语法：$(selector).slideToggle(speed,callback);
+</li>
+</ul>
+  参数speed规定效果的时长，可以取值："slow"、"fast"或毫秒。callback参数是滑动完成后所执行的函数名称。
+  <hr>
+    <div id="div1">
+      吃香蕉不薄皮<br />
+      吃葡萄不吐皮
+    </div>
+    <button id="btn1" style="" class="btn">slideDown</button>
+    <button id="btn2" style="" class="btn">slideUp</button>
+    <button id="btn3" style="" class="btn">slideToggle</button>
+    <div id="div2" style="display:none">
+      有没有点小小激动呢<br />
+      想起那在夕阳下奔跑，那..那是我
+      逝去的青春
+    </div>
+</body>
+<script>
+$(function(){//slideDown()方法
+    $("#btn1").click(function(){
+      //alert('slidedown');
+      if($('#div1').css('display') === 'block'){
+        alert('display:block');
+        return;
+      }
+        $("#div1").slideDown("slow", function(){alert('done');});
+    });
+});
+$(function(){//slideUp()方法
+    $("#btn2").click(function(){
+      //alert('slideup');
+      if($('#div1').css('display') === 'none'){
+        alert('display:none');
+        return;
+      }
+        $("#div1").slideUp("slow");
+    });
+});
+$(function(){//slideToggle()方法
+    $("#btn3").click(function(){
+      //alert('slidetoggle');
+        $("#div2").slideToggle("slow");
+    });
+});
+
+</script>
+</html>

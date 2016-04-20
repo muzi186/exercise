@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+    <title>移除事件</title>
+    <script src="js/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+    <h3>移除事件</h3>
+    <div>帽子,点击之后消失</div>
+    <div>上衣,点击之后消失</div>
+    <div>裤子,点击之后消失</div>
+    <div>内裤,点击之后消失</div>
+    <div>鞋子,点击之后消失</div>
+    <input type="button" id="btn" value="点击之后隐藏事件被移除了"/>
+</body>
+<script>
+$(function(){
+    $("div").click(function(){
+        $(this).slideToggle();//给div注册隐藏事件
+    });
+    $("#btn").click(function(){
+        $("div").unbind();//把div的事件移除
+    });
+})
+</script>
+</script>
+</html>

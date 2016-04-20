@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>自定义插件</title>
+
+    <script src="js/jquery/1.9.0/jquery.js"></script>
+  </head>
+
+  <body>
+    我们准备做一个可折叠的控制面板
+
+当我们创建一个jQuery插件时，本质是在扩展jQuery库。
+要真正了解插件如何扩展jQuery库需要对JavaScript prototype属性有一个基本了解。
+虽然我们不直接使用，但是JavaScript prototype属性可以通过jQuery属性fn在后台使用，
+这是原生JavaScript prototype属性的一个jQuery别名。
+
+jQuery.fn.accordion = function() {
+    // 添加代码
+};
+创建一个 jQuery 插件所推荐的方法是，先创建一个允许使用美元符号 ($) 的包装器函数。
+在默认情况下，美元符号可能与其他 JavaScript 框架发生冲突，
+如果将插件包装在一个函数中，就不会出现冲突。所以推荐使用下面代码创建jQuery插件：
+
+(function($) {
+    $.fn.accordion = function() {
+        // 添加插件代码
+    };
+})(jQuery);
+上面代码，jQuery 关键字被应用到包装器函数中，这允许您在插件中使用美元符号，
+就像使用 fn 属性时那样。包装器函数就绪后，
+就可以在整个插件的任何地方使用美元符号代替 jQuery 关键字，不会干扰其他第三方插件。
+
+
+<hr>
+维护链接性
+jQuery 的一个优势是允许您使用任何类型的选择器。
+但是，必须记住，您的插件可以处理几种不同的元素类型。
+使用 this 关键字允许您的插件应用于相关函数，通过循环实现每个元素的访问，而不考虑元素类型。
+如果在 each 循环前使用 return 关键字，就可以使用您的插件维护链接性。
+
+如下代码：
+
+(function($) {
+  $.fn.accordion = function() {
+    return this.each(function() {
+    //
+    });
+  };
+})(jQuery);
+
+<hr>
+构造一个可折叠面板的页面
+一个典型的层叠设计包括标题栏和相关内容区域。定义列表是一个可供 accordions 使用的很好的 HTML 结构；dt 元素供标题所用，而dd 元素供内容区域所用。
+
+如下代码：
+<dl class="accordion" id="my-accordion">
+ <dt>Section 1</dt>
+   <dd>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam.</dd>
+ <dt>Section 2</dt>
+    <dd>Vestibulum a velit eu ante scelerisque vulputate.</dd>
+  <dt>Section 3</dt>
+    <dd>Nam mi. Proin viverra leo ut odio. Curabitur malesuada.</dd>
+  <dt>Section 4</dt>
+    <dd>Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc.</dd>
+</dl>
+当然我们还要给他加上CSS样式，CSS代码就不在这里详细写了，具体的代码在右边CSS代码框中。效果图如下:
+
+<hr>
+自定义你的插件
+对于每个 Accordion，你以使用 jQuery 的 children 方法访问相关定义的标题，返回一个数组或 dt 元素。应用一个 click 事件到 dt 元素，然后一个名为 reset 方法应用到每个 dt。accordion 首次加载时，该 reset 方法会折叠所有 dd 元素。单击 dt 元素或者标题栏时，click 事件会触发一个名为 onClick 的自定义方法。自定义 onClick 方法用于查找 accordion 中的所有 dt 元素。它调用一个自定义 hide 方法，该方法通过使用 next 方法找到紧挨着 dt 元素的 dd 元素，隐藏每个相关的 dd 元素，通过使用 next 方法找到紧挨着 dt 元素的 dd 元素，然后向上滑动激活它。
+
+所有 dd 元素被隐藏后，使用 slideDown 方法，就可以看见与单击过的 dt 元素相关的 dd 元素，并创建一个放大和收缩动画，如清单 8 所示。onClick 方法的最后一行代码是 return false，确保任何被点击的主题栏没有显现出其一般行为。例如，如果您使用一个 anchor 元素作为标题栏，您可能想要执行 return false，这样就不会将用户定向到另一个页面或现有页面的一部分。
+
+代码详细：
+
+(function($) {
+  $.fn.accordion = function(options) {
+    return this.each(function() {
+      var dts = $(this).children('dt');
+      dts.click(onClick);
+      dts.each(reset);
+    });
+
+    function onClick() {
+      $(this).siblings('dt').each(hide);
+      $(this).next().slideDown('fast');
+      return false;
+    }
+
+    function hide() {
+      $(this).next().slideUp('fast');
+    }
+
+    function reset() {
+      $(this).next().hide();
+    }
+  }
+})(jQuery);
+之后就是在html页面中引用定义好的jQuery插件了。当然还在js代码中调用。
+
+$(function(){
+    $('dl#my-accordion').accordion();
+})
+  </body>
+
+</html>

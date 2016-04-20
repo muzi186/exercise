@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>包裹元素</title>
+
+    <script src="js/jquery/1.9.0/jquery.js"></script>
+  </head>
+
+  <body>
+    在jQuery中使用wrap()和wrapInner()方法包裹元素和内容，但前者用于包裹元素本身，后者则用于包裹元素中的内容。
+
+wrap()语法形式：$(selector).wrap(wrapper)
+
+wrapInner()语法形式：$(selector).wrapInner(wrapper)
+
+参数selector为被包裹的元素，wrapper参数为包裹元素的格式
+<hr>
+<button>Wrap</button>
+<p>一周中最喜欢的是：<span>周五</span></p>
+
+<p>一周中最不喜欢的是：<span>周一</span></p>
+  </body>
+
+  <script>
+    $(function(){
+      $('button').one('click', function(){
+        $('p').wrap('<b></b>');
+        $('span').wrapInner('<i></i>');
+      });
+    });
+
+  </script>
+
+</html>

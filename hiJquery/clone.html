@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Clone</title>
+
+    <script src="js/jquery/1.9.0/jquery.js"></script>
+  </head>
+
+  <body>
+    <div id="div-clone"><span>你好！</span></div>
+
+    <button id="clone1">Clone Me</button>
+    <hr>
+
+
+  </body>
+
+  <script>
+  $(document).ready(function(){
+    $('#clone1').click(function(){
+      //alert($('#div-clone').html());
+      $('body').append($('#div-clone').clone());
+    });
+  });
+
+  </script>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+    <title>change()改变事件</title>
+    <script src="js/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <p>
+    在jQuery中使用 hide() 和 show() 方法来隐藏和显示 HTML 元素：
+
+    hide()的语法形式：$(selector).hide(speed,callback);
+
+    show()的语法形式：$(selector).show(speed,callback);
+
+    speed 参数规定隐藏/显示的速度，可以取以下值："slow"、"fast"或毫秒。
+     callback 参数是隐藏或显示完成后所执行的函数名称，两个参数都是可选的。
+
+  </p>
+  <hr>
+    <h3>隐藏和显示</h3>
+    <input type="button" id="hide" value="点击隐藏" />
+    <input type="button" id="show" value="点击显示" />
+    <div>在夕阳下奔跑，那是我逝去的青春。</div>
+</body>
+<script>
+$(function(){
+  $('#hide').click(function(){
+    $('div').hide(1000*5);
+  });
+
+  $('#show').click(function(){
+    $('div').show(1000*5);
+  });
+});
+
+</script>
+</html>
