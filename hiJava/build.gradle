@@ -1,0 +1,36 @@
+
+ext{
+
+}
+
+repositories{
+    mavenLocal()
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+//apply plugin: 'war'
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+eclipse{
+    classpath{
+        downloadSources = true
+    }
+}
+
+/*
+war{
+    baseName = 'goodqa'
+    archiveName = 'goodqa.war'
+}
+*/
+
+dependencies{
+    compile "org.slf4j:slf4j-api:1.7.21"
+    compile "ch.qos.logback:logback-core:1.1.7"
+    compile "ch.qos.logback:logback-classic:1.1.7"
+}

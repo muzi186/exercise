@@ -5,6 +5,8 @@ list of blogs and then store them in {"title":"","publish-time":"","category":""
 http://gavin2lee.iteye.com/
 */
 
+'use strict'
+
 var superagent = require('superagent');
 var observe = require('observe.js');
 var cheerio = require('cheerio');
