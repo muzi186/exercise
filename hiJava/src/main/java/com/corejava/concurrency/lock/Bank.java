@@ -1,10 +1,12 @@
 package com.corejava.concurrency.lock;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +24,17 @@ public class Bank {
 
 	private int initialTotalBalance = 0;
 
+	private ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
+	private Lock readLock = rwLock.readLock();
+	private Lock writeLock = rwLock.writeLock();
+
 	public int getInitialTotalBalance() {
-		return initialTotalBalance;
+		readLock.lock();
+		try {
+			return initialTotalBalance;
+		} finally {
+			readLock.unlock();
+		}
 	}
 
 	public Bank() {
@@ -32,11 +43,18 @@ public class Bank {
 	}
 
 	private void init() {
-		for (int i = 0; i < ACCOUNT_CAPACITY; i++) {
-			accounts[i] = INITIAL_BALANCE;
-		}
+		// for (int i = 0; i < ACCOUNT_CAPACITY; i++) {
+		// accounts[i] = INITIAL_BALANCE;
+		// }
+		writeLock.lock();
+		try {
 
-		initialTotalBalance = getTotalBalance();
+			Arrays.fill(accounts, INITIAL_BALANCE);
+
+			initialTotalBalance = getTotalBalance();
+		} finally {
+			writeLock.unlock();
+		}
 	}
 
 	public void transfer(int fromAccount, int toAccount, int amount) {
@@ -52,10 +70,9 @@ public class Bank {
 					e.printStackTrace();
 				}
 			}
-			
+
 			accounts[fromAccount] -= amount;
 			accounts[toAccount] += amount;
-
 
 			log.debug(String.format("Operator:%s - Transfered [%d] from <%d %d> to <%d %d> ",
 					Thread.currentThread().getName(), amount, fromAccount, accounts[fromAccount], toAccount,
@@ -70,11 +87,16 @@ public class Bank {
 	}
 
 	public int getBalance(int account) {
-		return accounts[account];
+		readLock.lock();
+		try {
+			return accounts[account];
+		} finally {
+			readLock.unlock();
+		}
 	}
 
 	public int getTotalBalance() {
-		bankLock.lock();
+		readLock.lock();
 		try {
 			int sum = 0;
 			List<Integer> accountsAsList = new ArrayList<Integer>();
@@ -88,7 +110,7 @@ public class Bank {
 
 			return sum;
 		} finally {
-			bankLock.unlock();
+			readLock.unlock();
 		}
 	}
 }
