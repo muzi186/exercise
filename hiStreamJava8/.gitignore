@@ -1,8 +1,0 @@
-/bin/
-/.settings/
-/target/
-/build/
-.classpath
-.project
-*.class
-*~
