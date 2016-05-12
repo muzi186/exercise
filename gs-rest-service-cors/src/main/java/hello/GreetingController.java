@@ -13,11 +13,12 @@ public class GreetingController {
 	private static final String TEMPLATE = "Greeting to you - <%s>!";
 	private static final AtomicLong count = new AtomicLong();
 
-	@CrossOrigin(origins="http://localhost:9000")
+	@CrossOrigin(origins="http://localhost:9090")
 	@RequestMapping("/greeting")
 	public @ResponseBody Greeting greeting(
 			@RequestParam(value = "name", required = false, defaultValue = "CORS") String name) {
 		System.out.println("======   greeting()    =======");
+		System.out.println("Param: "+name);
 		String content = String.format(TEMPLATE, name);
 		Greeting greeting = new Greeting(count.incrementAndGet(), content);
 
@@ -26,7 +27,8 @@ public class GreetingController {
 	
 	@RequestMapping("/hi")
     public @ResponseBody Greeting hi(@RequestParam(required=false, defaultValue="World") String name) {
-        System.out.println("==== in hi ====");
+        System.out.println("==== hi() ==== " );
+        System.out.println("Param: "+name);
         return new Greeting(count.incrementAndGet(), String.format("Hi, <%s>", name));
     }
 }
