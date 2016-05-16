@@ -32,10 +32,10 @@
      -->
     <!--指定logger name为包名或类全名 指定级别 additivity设置是否传递到root logger -->
     <logger name="com.corejava" level="INFO" additivity="false">
-        <appender-ref ref="DebugDayFile"/>
+        <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="com.corejava.ehcache" level="DEBUG" additivity="false">
+    <logger name="com.ehcache" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
     <!-- 
@@ -47,7 +47,7 @@
     <!--slf4j2包下的类在ERROR级别时候传递到root logger中-->
     <logger name="slf4j2" level="ERROR" />
     <!--根logger控制-->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
