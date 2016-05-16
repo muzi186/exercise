@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <property name="LOG_HOME" value="/home/gavin/Dev/logs" />
+    <property name="PROJECT_NAME" value="hiJava" />
     <!-- 控制台输出日志 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -11,7 +12,7 @@
     <appender name="DebugDayFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <Encoding>UTF-8</Encoding>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/hiJava/logFileDebug.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/${PROJECT_NAME}/logFileDebug.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -30,8 +31,12 @@
     </appender>
      -->
     <!--指定logger name为包名或类全名 指定级别 additivity设置是否传递到root logger -->
-    <logger name="com.corejava" level="DEBUG" additivity="false">
+    <logger name="com.corejava" level="INFO" additivity="false">
         <appender-ref ref="DebugDayFile"/>
+    </logger>
+
+    <logger name="com.corejava.ehcache" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
     </logger>
     <!-- 
     <logger name="com.corejava" level="INFO" additivity="false">
