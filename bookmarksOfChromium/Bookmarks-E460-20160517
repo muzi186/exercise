@@ -1,0 +1,176 @@
+{
+   "checksum": "e5b0c921dd30e4a448c5133113544f0a",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "children": [ {
+               "date_added": "13105967234847887",
+               "id": "14",
+               "name": "Node.js 中文网",
+               "type": "url",
+               "url": "http://nodejs.cn/"
+            }, {
+               "date_added": "13106283115657457",
+               "id": "23",
+               "name": "Express - 基于 Node.js 平台的 web 应用开发框架",
+               "type": "url",
+               "url": "http://www.expressjs.com.cn/"
+            } ],
+            "date_added": "13105901662450213",
+            "date_modified": "13107028059992853",
+            "id": "6",
+            "name": "NodeJS",
+            "type": "folder"
+         }, {
+            "children": [  ],
+            "date_added": "13105901679286192",
+            "date_modified": "13105901679286192",
+            "id": "7",
+            "name": "Android",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13105901857724852",
+               "id": "9",
+               "name": "汇智网 - 最前沿的在线互动编程学习平台",
+               "type": "url",
+               "url": "http://www.hubwiz.com/"
+            }, {
+               "date_added": "13107492655693100",
+               "id": "38",
+               "name": "51CTO.COM - 技术成就梦想 - 中国领先的IT技术网站",
+               "type": "url",
+               "url": "http://www.51cto.com/"
+            } ],
+            "date_added": "13105901823480269",
+            "date_modified": "13107498532545452",
+            "id": "8",
+            "name": "Furom",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13105960965550043",
+               "id": "12",
+               "name": "Getting Started with MongoDB (Node.js Edition) — Getting Started With MongoDB 3.0.4",
+               "type": "url",
+               "url": "https://docs.mongodb.org/getting-started/node/"
+            } ],
+            "date_added": "13105960982508039",
+            "date_modified": "13105967234847887",
+            "id": "13",
+            "name": "Mongodb",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13106218438506996",
+               "id": "17",
+               "name": "GitHub Help",
+               "type": "url",
+               "url": "https://help.github.com/"
+            } ],
+            "date_added": "13106218455637619",
+            "date_modified": "13106229248671187",
+            "id": "18",
+            "name": "Git",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13106229248671187",
+               "id": "19",
+               "name": "Spring Boot",
+               "type": "url",
+               "url": "http://projects.spring.io/spring-boot/"
+            }, {
+               "date_added": "13107028059992853",
+               "id": "26",
+               "name": "Spring",
+               "type": "url",
+               "url": "https://spring.io/"
+            }, {
+               "date_added": "13107334094248605",
+               "id": "32",
+               "name": "Spring Framework",
+               "type": "url",
+               "url": "http://projects.spring.io/spring-framework/"
+            }, {
+               "date_added": "13107419968741625",
+               "id": "35",
+               "name": "Guides",
+               "type": "url",
+               "url": "https://spring.io/guides"
+            }, {
+               "date_added": "13107504593332751",
+               "id": "41",
+               "name": "Spring Initializr",
+               "type": "url",
+               "url": "http://start.spring.io/"
+            }, {
+               "date_added": "13107575606832264",
+               "id": "44",
+               "name": "Spring Data",
+               "type": "url",
+               "url": "http://projects.spring.io/spring-data/"
+            } ],
+            "date_added": "13106229264919719",
+            "date_modified": "13107575606832264",
+            "id": "20",
+            "name": "spring",
+            "type": "folder"
+         }, {
+            "children": [ {
+               "date_added": "13107323725524656",
+               "id": "29",
+               "name": "mybatis-spring",
+               "type": "url",
+               "url": "http://www.mybatis.org/spring/zh/index.html"
+            } ],
+            "date_added": "13107323754354474",
+            "date_modified": "13107330241306860",
+            "id": "30",
+            "name": "MyBatis",
+            "type": "folder"
+         }, {
+            "date_added": "13107330241306860",
+            "id": "31",
+            "name": "EPAM",
+            "type": "url",
+            "url": "https://owabud.epam.com/owa/?bO=1#path=/mail"
+         }, {
+            "children": [ {
+               "date_added": "13107498532545452",
+               "id": "39",
+               "name": "The Groovy programming language",
+               "type": "url",
+               "url": "http://www.groovy-lang.org/"
+            } ],
+            "date_added": "13107498548650228",
+            "date_modified": "13107504593332751",
+            "id": "40",
+            "name": "Groovy",
+            "type": "folder"
+         } ],
+         "date_added": "13105891681085633",
+         "date_modified": "13107334094248605",
+         "id": "1",
+         "name": "Bookmarks bar",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13105891681085652",
+         "date_modified": "0",
+         "id": "2",
+         "name": "Other bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13105891681085653",
+         "date_modified": "0",
+         "id": "3",
+         "name": "Mobile bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
