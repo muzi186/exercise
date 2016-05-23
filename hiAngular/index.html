@@ -1,0 +1,61 @@
+<!doctype html>
+<html ng-app="test-app" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Index</title>
+</head>
+
+<body>
+  <div class="container">
+    Names:<input type="text" ng-model="firstName"/> {{ firstName }}
+    <br/>
+
+    <h3>Looping with the ng-repeat directive</h3>
+    <ul ng-init="names=[{'firstName':'Alan','lastName':'Li'},
+    {'firstName':'Bob','lastName':'Meng'},
+    {'firstName':'Clob','lastName':'Guo'},
+    {'firstName':'David','lastName':'Li'}]">
+    <li ng-repeat="name in names | filter:firstName | orderBy: 'lastName'">
+      {{ name.firstName | uppercase}} {{name.lastName | uppercase}}
+    </li>
+  </ul>
+  <br/>
+</div>
+
+
+<div ng-controller="ProductDataController">
+  Products: <input type="text" ng-model="itemCodeStr"/>
+  <br/>
+  {{ itemCodeStr }}
+  <h3> Products</h3>
+  <ul>
+    <li ng-repeat="prod in products | filter:itemCodeStr | orderBy:'price'">
+      {{ prod.itemCode }} {{prod.name}} {{ prod.price }}
+    </li>
+  </ul>
+</div>
+<hr/>
+
+</body>
+
+<script src="lib/js/angular-1.0.1.min.js"></script>
+<script>
+
+  var app = angular.module('test-app', []);
+
+  app.controller('ProductDataController', ['$scope', function($scope){
+    $scope.products = [
+      {itemCode:4000, name:'Fan', price:80},
+      {itemCode:1000, name:'Samsumg Mobile', price:3000.10},
+      {itemCode:2000, name:'ThinkPad Laptop', price:5000},
+      {itemCode:3000, name:'Power Banker', price:100}
+    ];
+
+    $scope.itemCodeStr = '100';
+  }]);
+
+</script>
+
+
+
+</html>
