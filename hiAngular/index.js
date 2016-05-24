@@ -63,7 +63,7 @@ app.factory('ProductDataFactory', function(){
       return true;
     }
 
-    // alert('actual:'+actual)
+    alert('actual:'+actual);
 
     if((actual.productName) && (actual.productName.slice(0, expected.length) == expected)){
       return true;
