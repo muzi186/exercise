@@ -22,14 +22,13 @@
   <br/>
 </div>
 
-
 <div ng-controller="ProductDataController">
   Products: <input type="text" ng-model="itemCodeStr"/>
   <br/>
   {{ itemCodeStr }}
   <h3> Products</h3>
   <ul>
-    <li ng-repeat="prod in products | filter:itemCodeStr | orderBy:'price'">
+    <li ng-repeat="prod in products | filter:itemCodeStr : itemCodeComparator | orderBy:'price'">
       {{ prod.itemCode }} {{prod.name}} {{ prod.price }}
     </li>
   </ul>
@@ -38,24 +37,7 @@
 
 </body>
 
-<script src="lib/js/angular-1.0.1.min.js"></script>
-<script>
-
-  var app = angular.module('test-app', []);
-
-  app.controller('ProductDataController', ['$scope', function($scope){
-    $scope.products = [
-      {itemCode:4000, name:'Fan', price:80},
-      {itemCode:1000, name:'Samsumg Mobile', price:3000.10},
-      {itemCode:2000, name:'ThinkPad Laptop', price:5000},
-      {itemCode:3000, name:'Power Banker', price:100}
-    ];
-
-    $scope.itemCodeStr = '100';
-  }]);
-
-</script>
-
-
+<script src="lib/js/angular.1.5.5.js"></script>
+<script src="index.js"></script>
 
 </html>
