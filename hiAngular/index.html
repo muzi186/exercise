@@ -29,15 +29,39 @@
   <h3> Products</h3>
   <ul>
     <li ng-repeat="prod in products | filter:itemCodeStr : itemCodeComparator | orderBy:'price'">
-      {{ prod.itemCode }} {{prod.name}} {{ prod.price }}
+      {{ prod.itemCode }} {{prod.productName}} {{ prod.price }}
     </li>
   </ul>
 </div>
 <hr/>
 
+<div ng-controller="ProductDataController2">
+  Products: <input type="text" ng-model="itemCodeStr"/>
+  <br/>
+  {{ itemCodeStr }}
+  <h3> Products</h3>
+  <ul>
+    <li ng-repeat="prod in products | filter:itemCodeStr : itemCodeComparator | orderBy:'price'">
+      {{ prod.itemCode }} {{prod.productName}} {{ prod.price }}
+    </li>
+  </ul>
+</div>
+<hr/>
+
+
+<div ng-controller="ProductDataRouteController">
+  <a href="#/views/view1">View One</a>|
+  <a href="#/views/view2">View Two</a>
+
+  <div ng-view></div>
+</div>
+
+
+
 </body>
 
 <script src="lib/js/angular.1.5.5.js"></script>
+<script src="lib/js/angular-route.1.5.5.js"></script>
 <script src="index.js"></script>
 
 </html>
