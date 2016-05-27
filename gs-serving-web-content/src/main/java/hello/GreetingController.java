@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by gavin on 16-5-25.
  */
 @Controller
-@RequestMapping("/gs-web")
+//@RequestMapping("/gs-web")
 public class GreetingController {
 
     @RequestMapping("/greeting")
