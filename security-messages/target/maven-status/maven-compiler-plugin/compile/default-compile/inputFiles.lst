@@ -1,0 +1,8 @@
+/home/gavin/Dev/GitRepo/exercise/security-messages/src/main/java/org/springframework/security/samples/config/RootConfiguration.java
+/home/gavin/Dev/GitRepo/exercise/security-messages/src/main/java/org/springframework/security/samples/mvc/DefaultController.java
+/home/gavin/Dev/GitRepo/exercise/security-messages/src/main/java/org/springframework/security/samples/config/DataConfiguration.java
+/home/gavin/Dev/GitRepo/exercise/security-messages/src/main/java/org/springframework/security/samples/config/MessageWebApplicationInitializer.java
+/home/gavin/Dev/GitRepo/exercise/security-messages/src/main/java/org/springframework/security/samples/data/Message.java
+/home/gavin/Dev/GitRepo/exercise/security-messages/src/main/java/org/springframework/security/samples/data/MessageRepository.java
+/home/gavin/Dev/GitRepo/exercise/security-messages/src/main/java/org/springframework/security/samples/mvc/MessageController.java
+/home/gavin/Dev/GitRepo/exercise/security-messages/src/main/java/org/springframework/security/samples/mvc/config/WebMvcConfiguration.java
