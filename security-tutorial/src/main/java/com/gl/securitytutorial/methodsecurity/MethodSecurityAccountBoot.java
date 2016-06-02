@@ -3,6 +3,8 @@ package com.gl.securitytutorial.methodsecurity;
 import com.gl.securitytutorial.methodsecurity.config.AccountConfiguration;
 import com.gl.securitytutorial.methodsecurity.service.AccountService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
 public class MethodSecurityAccountBoot {
 
     public static void main(String...args){
+
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("admin-test", "admin-test"));
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AccountConfiguration.class);
         AccountService service = ctx.getBean(AccountService.class);
 

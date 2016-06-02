@@ -49,8 +49,11 @@ public class AccountConfiguration {
                 if(principal.equals("user-test")){
                     authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
                 }else if(principal.equals("admin-test")){
+                    authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
                     authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                 }else if(principal.equals("supervisor-test")){
+                    authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                    authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                     authorities.add(new SimpleGrantedAuthority("ROLE_SUPERVISOR"));
                 }else{
                     //do nothing
@@ -64,7 +67,7 @@ public class AccountConfiguration {
 
             @Override
             public boolean supports(Class<?> authentication) {
-                return false;
+                return true;
             }
         });
 
