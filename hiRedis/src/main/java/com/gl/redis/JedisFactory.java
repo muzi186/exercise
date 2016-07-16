@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.Protocol;
 
 public final class JedisFactory {
 	private static final JedisFactory instance = new JedisFactory();
@@ -29,16 +30,16 @@ public final class JedisFactory {
 		String ip = bundle.getString("redis.ip"); 
         int port = Integer.valueOf(bundle.getString("redis.port"));
         
-        return new JedisPool(config, ip, port);
+        return new JedisPool(config, ip, port,Protocol.DEFAULT_TIMEOUT,"123456");
 	}
 	
 	private JedisPoolConfig createJedisPoolConfig(ResourceBundle bundle){
 		JedisPoolConfig config = new JedisPoolConfig();  
-	    config.setMaxActive(Integer.valueOf(bundle  
-	            .getString("redis.pool.maxActive")));  
+//	    config.setMaxActive(Integer.valueOf(bundle  
+//	            .getString("redis.pool.maxActive")));  
 	    config.setMaxIdle(Integer.valueOf(bundle  
 	            .getString("redis.pool.maxIdle")));  
-	    config.setMaxWait(Long.valueOf(bundle.getString("redis.pool.maxWait")));  
+	    //config.setMaxWait(Long.valueOf(bundle.getString("redis.pool.maxWait")));  
 	    config.setTestOnBorrow(Boolean.valueOf(bundle  
 	            .getString("redis.pool.testOnBorrow")));  
 	    config.setTestOnReturn(Boolean.valueOf(bundle  
@@ -56,6 +57,9 @@ public final class JedisFactory {
 	}
 	
 	public void returnJedis(Jedis j){
-		pool.returnResource(j);
+		//pool.returnResource(j);
+		if(j != null){
+			j.close();
+		}
 	}
 }
