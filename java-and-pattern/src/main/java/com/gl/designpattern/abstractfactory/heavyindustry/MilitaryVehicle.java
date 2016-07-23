@@ -1,29 +1,8 @@
 package com.gl.designpattern.abstractfactory.heavyindustry;
 
-public abstract class MilitaryVehicle implements Vehicle,Attackable {
-
+public abstract class MilitaryVehicle extends AbstractVehicle implements Attackable {
 	@Override
-	public void drive() {
-		// TODO Auto-generated method stub
-
+	public void attack() {
+		System.out.println(this.getClass().getSimpleName() + " attack...");
 	}
-
-	@Override
-	public void reverse() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void parking() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void none() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

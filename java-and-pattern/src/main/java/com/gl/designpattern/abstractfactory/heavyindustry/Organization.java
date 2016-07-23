@@ -1,5 +1,5 @@
 package com.gl.designpattern.abstractfactory.heavyindustry;
 
-public class MilitaryHelicopter extends MilitaryCraft {
-
+public interface Organization {
+	void go();
 }

@@ -1,5 +1,6 @@
 package com.gl.designpattern.abstractfactory.heavyindustry;
 
-public class MilitaryHelicopter extends MilitaryCraft {
-
+public interface Ship {
+	void sail();
+	void anchor();
 }

@@ -1,8 +1,10 @@
 package com.gl.designpattern.abstractfactory.heavyindustry;
 
-public abstract class MilitaryCraft extends AbstractCraft implements Attackable {
+public abstract class MilitaryShip extends AbstractShip implements Attackable {
+
 	@Override
 	public void attack() {
 		System.out.println(this.getClass().getSimpleName() + " attack...");
 	}
+
 }

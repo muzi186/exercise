@@ -1,15 +1,18 @@
 package com.gl.designpattern.abstractfactory.heavyindustry;
 
-public class MilitaryManufacturer implements Manufacturer {
+public abstract class MilitaryManufacturer implements Manufacturer {
 
 	@Override
 	public Vehicle manufactureVehicle() {
-		return null;
+		return new MilitaryTank();
 	}
 
 	@Override
-	public Craft manufactureCraft() {
-		return null;
+	public abstract Craft manufactureCraft();
+
+	@Override
+	public Ship manufactureShip() {
+		return new MilitaryWarShip();
 	}
 
 }

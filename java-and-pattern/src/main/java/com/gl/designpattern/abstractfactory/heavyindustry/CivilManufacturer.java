@@ -1,17 +1,18 @@
 package com.gl.designpattern.abstractfactory.heavyindustry;
 
-public class CivilManufacturer implements Manufacturer {
+public abstract class CivilManufacturer implements Manufacturer {
 
 	@Override
 	public Vehicle manufactureVehicle() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CivilTruck();
 	}
 
 	@Override
-	public Craft manufactureCraft() {
-		// TODO Auto-generated method stub
-		return null;
+	public abstract Craft manufactureCraft();
+
+	@Override
+	public Ship manufactureShip() {
+		return new CivilCruiseShip();
 	}
 
 }
