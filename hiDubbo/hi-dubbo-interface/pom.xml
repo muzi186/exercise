@@ -12,7 +12,7 @@
 
 
 	<artifactId>hi-dubbo-interface</artifactId>
-	<name>Dubbo Project</name>
+	<name>Dubbo Project - interface</name>
 
 	<packaging>jar</packaging>
 
