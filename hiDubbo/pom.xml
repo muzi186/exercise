@@ -11,6 +11,10 @@
 	<name>Dubbo Project - parent</name>
 
 	<packaging>pom</packaging>
+	
+	<properties>
+		<spring.version>4.3.1.RELEASE</spring.version>
+	</properties>
 
 	<modules>
 		<module>hi-dubbo-interface</module>
