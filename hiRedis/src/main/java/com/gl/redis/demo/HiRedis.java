@@ -25,7 +25,7 @@ public class HiRedis {
 		storedValue = jedis.get(key);
 		System.out.println(String.format("GET %s => %s", key, storedValue));
 		
-		jf.returnJedis(jedis);
+		jf.closeJedis(jedis);
 	}
 
 }

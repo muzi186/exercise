@@ -35,11 +35,8 @@ public final class JedisFactory {
 	
 	private JedisPoolConfig createJedisPoolConfig(ResourceBundle bundle){
 		JedisPoolConfig config = new JedisPoolConfig();  
-//	    config.setMaxActive(Integer.valueOf(bundle  
-//	            .getString("redis.pool.maxActive")));  
 	    config.setMaxIdle(Integer.valueOf(bundle  
 	            .getString("redis.pool.maxIdle")));  
-	    //config.setMaxWait(Long.valueOf(bundle.getString("redis.pool.maxWait")));  
 	    config.setTestOnBorrow(Boolean.valueOf(bundle  
 	            .getString("redis.pool.testOnBorrow")));  
 	    config.setTestOnReturn(Boolean.valueOf(bundle  
@@ -56,8 +53,7 @@ public final class JedisFactory {
 		return pool.getResource();
 	}
 	
-	public void returnJedis(Jedis j){
-		//pool.returnResource(j);
+	public void closeJedis(Jedis j){
 		if(j != null){
 			j.close();
 		}
