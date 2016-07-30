@@ -10,7 +10,20 @@ public class UserService {
 		userRao.insertOne(user);
 	}
 	
+	public User findUserByIndex(long index){
+		User u = (User) userRao.findByIndex(index);
+		return u;
+	}
+	
 	public int count(){
 		return userRao.countUser();
+	}
+	
+	public void addUserIntoList(User u){
+		userRao.insertOneAsSerialization(u);
+	}
+	
+	public long getUserLength(){
+		return userRao.getLengthOfUsers();
 	}
 }

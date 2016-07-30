@@ -8,7 +8,7 @@ public class UserInitializer {
 	boolean amountInitialized = false;
 	int maxAmount = 0;
 	
-	static final int MAX_SIZE = 10000;
+	static final int MAX_SIZE = 100000;
 
 	public static void main(String[] args) {
 		System.err.println("ST add User - amount " + MAX_SIZE );
