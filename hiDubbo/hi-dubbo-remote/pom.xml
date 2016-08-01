@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>com.gl.hiDubbo</groupId>
 			<artifactId>hi-dubbo-interface</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
