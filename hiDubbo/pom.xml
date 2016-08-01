@@ -17,8 +17,8 @@
 
 	<modules>
 		<module>hi-dubbo-interface</module>
-		<module>hi-dubbo-remote</module>
-		<module>hi-dubbo-client</module>
+		<module>hi-dubbo-provider</module>
+		<module>hi-dubbo-consumer</module>
 	</modules>
 
 	<dependencies>
