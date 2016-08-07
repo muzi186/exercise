@@ -6,4 +6,5 @@ import com.gl.hidubbo.vo.UserVo;
 
 public interface UserService {
 	List<UserVo> getUsers();
+	UserVo checkUser(String username);
 }

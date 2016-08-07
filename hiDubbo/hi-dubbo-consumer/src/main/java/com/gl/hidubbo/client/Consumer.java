@@ -11,7 +11,7 @@ public class Consumer {
 
 	public static void main(String[] args) throws Exception {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				new String[] { "spring/application-context.xml" });
+				new String[] { "spring/application-context-reference.xml" });
 		context.start();
 
 		UserService userService = (UserService) context.getBean("userService"); //
@@ -23,6 +23,12 @@ public class Consumer {
 				System.out.println(list.get(i));
 			}
 		}
+
+		for (int i = 0; i < 10; i++) {
+			UserVo vo = userService.checkUser("666666");
+			System.out.println(vo);
+		}
+
 		System.in.read();
 	}
 
